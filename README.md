@@ -16,11 +16,9 @@ http://mp-pie.herokuapp.com
 
 #### Marvin ####
 
-1. create superset - use simple one for now (have one word mapped to multiple, like finance = money, banks, etc., eventually add option for custom search term)
 1. get data - MP images/bios, twitter handles (theyworkforyou)
 1. sentiment analysis, using trends alg
 
 #### Shreyas ####
 
-1. database schema - how we're going to store data in the database, what kind of data we need
 1. html structure

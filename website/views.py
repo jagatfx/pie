@@ -1,7 +1,11 @@
-# Create your views here.
-
 # Imports
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+
 import oauth2, urllib, urllib2, json
+
+def home(request):
+    return render_to_response("base.html", RequestContext(request))
 
 TWITTER_ACCESS_TOKEN = os.environ['TWITTER_ACCESS_TOKEN']
 TWITTER_ACCESS_TOKEN_SECRET = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
