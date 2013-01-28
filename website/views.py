@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from website.models import MP
 
+import os
 import oauth2, urllib, urllib2, json
 
 def home(request):
