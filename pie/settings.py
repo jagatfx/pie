@@ -1,7 +1,9 @@
-# Django settings for pie project.
+# Django settings for YouTubeRadio project.
+import os.path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+PROJECT_ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -109,6 +111,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT_DIR, 'templates').replace('\\','/'),
 )
 
 INSTALLED_APPS = (

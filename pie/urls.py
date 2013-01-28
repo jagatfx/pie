@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'pie.views.home', name='home'),
     # url(r'^pie/', include('pie.foo.urls')),
+    url(r'^$', 'website.views.home'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
