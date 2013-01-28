@@ -7,11 +7,11 @@ http://mp-pie.herokuapp.com
 
 #### ALL ####
 
-1. top topics algorithm - see if twitter has anything we can steal
+1. None
 
 #### Brian ####
 
-1. ten latest tweets by mp
+1. top topics algorithm - see if twitter has anything we can steal
 
 #### Marvin ####
 
