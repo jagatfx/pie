@@ -12,6 +12,9 @@ class MP(models.Model):
     constituency = models.CharField(max_length=30)
     twitter_handle = models.CharField(max_length=30)
 
+    def __unicode__(self):
+        return self.first_name + self.last_name
+
 class Term(models.Model):
     class Meta:
         verbose_name = "Term"
@@ -27,4 +30,7 @@ class TermAlias(models.Model):
         verbose_name_plural = "Term Aliases"
     term = models.ForeignKey('Term')
     alias = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.term.title + ": " + self.alias
 
