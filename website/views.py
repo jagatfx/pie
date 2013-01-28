@@ -18,9 +18,11 @@ def home(request):
 def mp_detail(request, mp_name):
     mp = MP.objects.get(name=mp_name.replace('_', ' '))
     data = {"name": mp.name,
+            "image_url": "http://shreyaschand.com/img/mp/" + mp_name + ".png",
             "party": mp.party,
             "constituency": mp.constituency,
-            "twitter": mp.twitter_handle}
+            "twitter_handle": mp.twitter_handle,
+            "tweets": tweet_text(latest_tweets(mp.twitter_handle))}
     return render_to_response('mp.html', RequestContext(request, data))
 
 TWITTER_ACCESS_TOKEN = os.environ['TWITTER_ACCESS_TOKEN']
@@ -42,7 +44,7 @@ def tweet_text(tweet_list):
     result = []
     for tweet in tweet_list:
         text = tweet["text"]
-        result.append(text.lower())
+        result.append(text)
     return result
 
 def tweet_tweeter(tweet):

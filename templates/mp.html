@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
+<img class="left" src="{{ image_url }}"/>
 {{ name }}<br/>
-{{ party }} <br/>
 {{ constituency }} <br/>
-{{ twitter }}
+{{ party }} <br/>
+<div class="clear"></div>
+<div class="well">
+    <p ><span class="lead">Latest Tweets </span>(From <a href="https://twitter.com/{{ twitter_handle }}" target="_blank">{{ twitter_handle }}</a>):</p>
+    {% for tweet in tweets %}
+    <p><i class="icon-chevron-right"></i>{{ tweet }}</p>
+    {% endfor %}
+</div>
 {% endblock %}
 
 
