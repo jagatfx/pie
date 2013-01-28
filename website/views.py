@@ -7,7 +7,13 @@ import os
 import oauth2, urllib, urllib2, json
 
 def home(request):
-    return render_to_response('base.html', RequestContext(request))
+    mp_list = MP.objects.all()
+    data = {"mps": []}
+    for mp in mp_list:
+        mp_desc = {"name":mp.name, "url":mp.name.replace(" ", "_")}
+        data["mps"].append(mp_desc)
+
+    return render_to_response('index.html', RequestContext(request, data))
 
 def mp_detail(request, mp_name):
     mp = MP.objects.get(name=mp_name.replace('_', ' '))
