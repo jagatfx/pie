@@ -12,7 +12,7 @@ class MP(models.Model):
 class Term(models.Model):
     title = models.CharField(max_length=30)
 
-class TermAliase(models.Model):
+class TermAlias(models.Model):
     term = models.ForeignKey('Term')
     alias = models.CharField(max_length=30)
 
