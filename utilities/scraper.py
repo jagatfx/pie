@@ -36,8 +36,7 @@ with open(OUTPUT_FILE, 'w') as f:
         for politician in source:
             constit = politician.split('h3')[1][1:-2]
             image = politician.split('src="')[1]
-            image = image.split('">\n\t\t')[0]
-            image.replace('_normal', '')
+            image = image.split('">\n\t\t')[0].replace('_normal', '')
             politician = politician.split('tweetersModuleCopyLeftside')[2]
             politician = politician.split('\n\t\t\t\t')
             twitter = politician[2].split('\t\t\t')[0]
