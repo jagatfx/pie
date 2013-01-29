@@ -55,7 +55,7 @@ def json_decode(fn, *args):
 
 ### Twitter queries
 
-def latest_tweets(mp_twitter="SamGyimah", num_tweets=5):
+def latest_tweets(mp_twitter="SamGyimah", num_tweets=10):
     """Returns a list of the most recent tweets by the MP. Each tweet is a dictionary."""
     def _helper():
         url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name={0}&count={1}".format(mp_twitter, num_tweets)
