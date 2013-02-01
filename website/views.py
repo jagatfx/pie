@@ -7,7 +7,7 @@ import os
 import oauth2, urllib, urllib2, json
 
 def home(request):
-    return render_to_response('base.html', RequestContext(request))
+    return render_to_response('index.html', RequestContext(request))
 
 def mp_overview(request):
     mp_list = MP.objects.all()
@@ -16,7 +16,7 @@ def mp_overview(request):
         mp_desc = {"name":mp.name, "url":mp.name.replace(" ", "_")}
         data["mps"].append(mp_desc)
 
-    return render_to_response('index.html', RequestContext(request, data))
+    return render_to_response('mp_overview.html', RequestContext(request, data))
 
 def mp_detail(request, mp_name):
     mp = MP.objects.get(name=mp_name.replace('_', ' '))
@@ -26,7 +26,7 @@ def mp_detail(request, mp_name):
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
             "tweets": tweet_text(latest_tweets(mp.twitter_handle))}
-    return render_to_response('mp.html', RequestContext(request, data))
+    return render_to_response('mp_detail.html', RequestContext(request, data))
 
 TWITTER_ACCESS_TOKEN = os.environ['TWITTER_ACCESS_TOKEN']
 TWITTER_ACCESS_TOKEN_SECRET = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
