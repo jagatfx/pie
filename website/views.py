@@ -7,11 +7,11 @@ import os
 import oauth2, urllib, urllib2, json
 
 def home(request):
-    return render_to_response('index.html', RequestContext(request))
+    return render_to_response('index.html', RequestContext(request, {"home": True}))
 
 def mp_overview(request):
     mp_list = MP.objects.all()
-    data = {"mps": []}
+    data = {"mp": True, "mps": []}
     for mp in mp_list:
         mp_desc = {"name":mp.name, "url":mp.name.replace(" ", "_")}
         data["mps"].append(mp_desc)
@@ -20,7 +20,8 @@ def mp_overview(request):
 
 def mp_detail(request, mp_name):
     mp = MP.objects.get(name=mp_name.replace('_', ' '))
-    data = {"name": mp.name,
+    data = {"mp": True,
+            "name": mp.name,
             "image_url": "http://shreyaschand.com/img/mp/" + mp_name + ".png",
             "party": mp.party,
             "constituency": mp.constituency,
