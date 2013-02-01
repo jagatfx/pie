@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
-        <title>PIE{% block title %}{% endblock %}</title>
+        <title>PIE | {% block title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% load staticfiles %}
         <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
@@ -12,9 +12,19 @@
         {% block head %}{% endblock %}
     </head>
     <body>
+        <div class="navbar" data-spy="affix" data-offset-top="1">
+            <div class="navbar-inner">
+                <a class="brand" href="/">Political Intelligence Engine</a>
+                <ul class="nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div>
+        </div>
         <div id="content" class="container-fluid">
-                {% block content %}
-                {% endblock %}
+            {% block content %}
+            {% endblock %}
         </div>
         {% block endbody %}{% endblock %}
     </body>
