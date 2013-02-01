@@ -7,6 +7,9 @@ import os
 import oauth2, urllib, urllib2, json
 
 def home(request):
+    return render_to_response('base.html', RequestContext(request))
+
+def mp_overview(request):
     mp_list = MP.objects.all()
     data = {"mps": []}
     for mp in mp_list:
