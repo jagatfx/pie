@@ -1,10 +1,15 @@
 {% extends "base.html" %}
+{% block title %}MP: {{ name }}{% endblock %}
 {% block content %}
-<img class="left" src="{{ image_url }}"/>
-{{ name }}<br/>
-{{ constituency }} <br/>
-{{ party }} <br/>
-<div class="clear"></div>
+<div class="bio">
+    <img class="pull-left" src="{{ image_url }}"/>
+    <p>
+        {{ name }}<br/>
+        {{ constituency }} <br/>
+        {{ party }} <br/>
+    </p>
+    <div class="clear"></div>
+</div>
 <div class="well">
     <p ><span class="lead">Latest Tweets </span>(From <a href="https://twitter.com/{{ twitter_handle }}" target="_blank">{{ twitter_handle }}</a>):</p>
     {% for tweet in tweets %}
