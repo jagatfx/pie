@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block title %}Home{% endblock %}
 {% block content %}
 {% for mp in mps %}
 <a href="/mp/{{ mp.url }}">{{ mp.name }}</a><br/>
