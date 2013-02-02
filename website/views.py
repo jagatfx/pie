@@ -1,11 +1,12 @@
 # Imports
-from django.template import RequestContext
-from django.shortcuts import render_to_response
-from website.models import MP
+# from django.template import RequestContext
+# from django.shortcuts import render_to_response
+# from website.models import MP
 
 import os
 import oauth2, urllib, urllib2, json
 
+<<<<<<< Updated upstream
 def home(request):
     return render_to_response('index.html', RequestContext(request, {"home": True}))
 
@@ -28,6 +29,31 @@ def mp_detail(request, mp_name):
             "twitter_handle": mp.twitter_handle,
             "tweets": tweet_text(latest_tweets(mp.twitter_handle))}
     return render_to_response('mp_detail.html', RequestContext(request, data))
+=======
+# os = pull TWITTER_* oauth tokens from environment
+# oauth2 = to send secure authorized requests to the Twitter API
+# urllib, urllib2 = parsing URL requests, etc.
+# json = parsing JSON output from Twitter API
+
+# def home(request):
+#     mp_list = MP.objects.all()
+#     data = {"mps": []}
+#     for mp in mp_list:
+#         mp_desc = {"name":mp.name, "url":mp.name.replace(" ", "_")}
+#         data["mps"].append(mp_desc)
+
+#     return render_to_response('index.html', RequestContext(request, data))
+
+# def mp_detail(request, mp_name):
+#     mp = MP.objects.get(name=mp_name.replace('_', ' '))
+#     data = {"name": mp.name,
+#             "image_url": "http://shreyaschand.com/img/mp/" + mp_name + ".png",
+#             "party": mp.party,
+#             "constituency": mp.constituency,
+#             "twitter_handle": mp.twitter_handle,
+#             "tweets": tweet_text(latest_tweets(mp.twitter_handle))}
+#     return render_to_response('mp.html', RequestContext(request, data))
+>>>>>>> Stashed changes
 
 TWITTER_ACCESS_TOKEN = os.environ['TWITTER_ACCESS_TOKEN']
 TWITTER_ACCESS_TOKEN_SECRET = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
@@ -54,6 +80,9 @@ def tweet_text(tweet_list):
 def tweet_tweeter(tweet):
     return tweet['user']['screen_name']
 
+def safe(url):
+    return urllib.quote(url, '/:-&?=')
+
 def json_decode(fn, *args):
     return json.loads(fn(*args))
 
@@ -63,36 +92,36 @@ def latest_tweets(mp_twitter="SamGyimah", num_tweets=10):
     """Returns a list of the most recent tweets by the MP. Each tweet is a dictionary."""
     def _helper():
         url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name={0}&count={1}".format(mp_twitter, num_tweets)
-        tweets = oauth_req(url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
+        safe_url = safe(url)
+        tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
     return json_decode(_helper)
 
-def relevant_tweets(words):
+def relevant_tweets(mp_name, mp_twitter='', num_tweets=100):
+    """Returns a list of the most recent tweets about MP or @MP. Currently hacks together a list of tweets @MP and a list of tweets mentioning MP."""
     def _helper():
-        url = "http://api.twitter.com/1.1/search/tweets.json"
-        num_tweets = 100
-        data = ' '.join(words)
-        query = urllib.urlencode({'q':data, 'count':num_tweets})
-        result = urllib2.urlopen(url, query)
-        # tweets = oauth_req(url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
-        # print(tweets)
-        print(result)
-        return
+        url = "https://api.twitter.com/1.1/search/tweets.json?q={0}&result_type=recent&count={1}".format(query, num_tweets)
+        safe_url = safe(url)
+        tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return json_decode(_helper)
+    query = mp_name
+    tweets = json_decode(_helper)
+    at_tweets = []
+    if mp_twitter:
+        query = "to:"+mp_twitter
+        at_tweets = json_decode(_helper)
+    return tweets + at_tweets
 
-def get_tweets(mp_name, mp_twitter=None):    
+def get_tweets(mp_name, mp_twitter=''):
     """Returns tweets by the MP or about him."""
     def _get_mp_tweets():
         if mp_twitter:
             return tweet_text(latest_tweets(mp_twitter=mp_twitter, num_tweets=5))
     def _get_mentions():
-        mentions = [mp_name]
-        if mp_twitter: mentions.append("@"+mp_twitter)
-        matches = relevant_tweets(mentions)
+        matches = relevant_tweets(mp_name, mp_twitter)
         not_by_mp = filter(lambda t: tweet_tweeter(t) != mp_twitter, matches)
         return tweet_text(not_by_mp)
-    return _get_mp_tweets()# + _get_mentions()
+    return _get_mp_tweets() + _get_mentions()
 
 
 ### Analysis
@@ -117,6 +146,6 @@ def analyze_sentiment(text_list, keyword):
 
 ### Testing!
 
-# j = get_tweets("", "SamGyimah")
-# k = keyword_filter(j, "")
-# j = relevant_tweets('electionbot')
+j = relevant_tweets('Sam Gyimah', 'SamGyimah')
+k = j['statuses']
+t = tweet_text(k)
