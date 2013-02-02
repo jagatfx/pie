@@ -65,33 +65,31 @@ def json_decode(fn, *args):
 
 def latest_tweets(mp_twitter="SamGyimah", num_tweets=10):
     """Returns a list of the most recent tweets by the MP. Each tweet is a dictionary."""
-    def _helper():
+    def _api_helper():
         url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name={0}&count={1}".format(mp_twitter, num_tweets)
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return json_decode(_helper)
+    return json_decode(_api_helper)
 
 def relevant_tweets(mp_name, mp_twitter='', num_tweets=100):
     """Returns a list of the most recent tweets about MP or @MP. Currently hacks together a list of tweets @MP and a list of tweets mentioning MP."""
-    def _helper():
+    def _api_helper(query):
         url = "https://api.twitter.com/1.1/search/tweets.json?q={0}&result_type=recent&count={1}".format(query, num_tweets)
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    query = mp_name
-    tweets = json_decode(_helper)
+    tweets = json_decode(_api_helper, mp_name)['statuses']
     at_tweets = []
     if mp_twitter:
-        query = "to:"+mp_twitter
-        at_tweets = json_decode(_helper)
+        at_tweets = json_decode(_api_helper, 'to:'+mp_twitter)['statuses']
     return tweets + at_tweets
 
 def get_tweets(mp_name, mp_twitter=''):
     """Returns tweets by the MP or about him."""
     def _get_mp_tweets():
         if mp_twitter:
-            return tweet_text(latest_tweets(mp_twitter=mp_twitter, num_tweets=5))
+            return tweet_text(latest_tweets(mp_twitter=mp_twitter, num_tweets=10))
     def _get_mentions():
         matches = relevant_tweets(mp_name, mp_twitter)
         not_by_mp = filter(lambda t: tweet_tweeter(t) != mp_twitter, matches)
@@ -118,9 +116,3 @@ def analyze_sentiment(text_list, keyword):
             total_sentiment += s
             num_tweets += 1
     return (keyword, total_sentiment/num_tweets)
-
-### Testing!
-
-j = relevant_tweets('Sam Gyimah', 'SamGyimah')
-k = j['statuses']
-t = tweet_text(k)
