@@ -6,30 +6,6 @@
 import os
 import oauth2, urllib, urllib2, json
 
-<<<<<<< Updated upstream
-def home(request):
-    return render_to_response('index.html', RequestContext(request, {"home": True}))
-
-def mp_overview(request):
-    mp_list = MP.objects.all()
-    data = {"mp": True, "mps": []}
-    for mp in mp_list:
-        mp_desc = {"name":mp.name, "url":mp.name.replace(" ", "_")}
-        data["mps"].append(mp_desc)
-
-    return render_to_response('mp_overview.html', RequestContext(request, data))
-
-def mp_detail(request, mp_name):
-    mp = MP.objects.get(name=mp_name.replace('_', ' '))
-    data = {"mp": True,
-            "name": mp.name,
-            "image_url": "http://shreyaschand.com/img/mp/" + mp_name + ".png",
-            "party": mp.party,
-            "constituency": mp.constituency,
-            "twitter_handle": mp.twitter_handle,
-            "tweets": tweet_text(latest_tweets(mp.twitter_handle))}
-    return render_to_response('mp_detail.html', RequestContext(request, data))
-=======
 # os = pull TWITTER_* oauth tokens from environment
 # oauth2 = to send secure authorized requests to the Twitter API
 # urllib, urllib2 = parsing URL requests, etc.
@@ -53,7 +29,6 @@ def mp_detail(request, mp_name):
 #             "twitter_handle": mp.twitter_handle,
 #             "tweets": tweet_text(latest_tweets(mp.twitter_handle))}
 #     return render_to_response('mp.html', RequestContext(request, data))
->>>>>>> Stashed changes
 
 TWITTER_ACCESS_TOKEN = os.environ['TWITTER_ACCESS_TOKEN']
 TWITTER_ACCESS_TOKEN_SECRET = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
