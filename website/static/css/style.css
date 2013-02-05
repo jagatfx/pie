@@ -1,0 +1,30 @@
+.clear {
+  clear: both; }
+
+.hide {
+  visibility: none; }
+
+.inlineCenter {
+  text-align: center; }
+
+.blockCenter {
+  margin-right: auto;
+  margin-right: auto; }
+
+.box {
+  border: solid black 1px; }
+
+.navbar {
+  /* affix width fix */
+  width: 100%; }
+  .navbar .btn {
+    margin-top: 0px; }
+
+.bio > img {
+  padding-right: 10px;
+  min-width: 150px;
+  max-width: 275px;
+  max-height: 275px; }
+
+.mp-row {
+  padding-bottom: 10px; }
