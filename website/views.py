@@ -22,7 +22,7 @@ def mp_detail(request, mp_name):
     mp = MP.objects.get(name=mp_name.replace('_', ' '))
     data = {"mp": True,
             "name": mp.name,
-            "image_url": "http://shreyaschand.com/img/mp/" + mp_name + ".png",
+            "image_url": "http://pie.shreyaschand.com/img/mp/" + mp_name + ".png",
             "party": mp.party,
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
