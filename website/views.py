@@ -1,7 +1,7 @@
 # Imports
-# from django.template import RequestContext
-# from django.shortcuts import render_to_response
-# from website.models import MP
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from website.models import MP
 
 import os
 import oauth2, urllib, urllib2, json
@@ -11,24 +11,28 @@ import oauth2, urllib, urllib2, json
 # urllib, urllib2 = parsing URL requests, etc.
 # json = parsing JSON output from Twitter API
 
-# def home(request):
-#     mp_list = MP.objects.all()
-#     data = {"mps": []}
-#     for mp in mp_list:
-#         mp_desc = {"name":mp.name, "url":mp.name.replace(" ", "_")}
-#         data["mps"].append(mp_desc)
+def home(request):
+    return render_to_response('index.html', RequestContext(request, {"home": True}))
 
-#     return render_to_response('index.html', RequestContext(request, data))
+def mp_overview(request):
+    mp_list = MP.objects.all()
+    data = {"mp": True, "mps": []}
+    for mp in mp_list:
+        mp_desc = {"name":mp.name, "url":mp.name.replace(" ", "_")}
+        data["mps"].append(mp_desc)
 
-# def mp_detail(request, mp_name):
-#     mp = MP.objects.get(name=mp_name.replace('_', ' '))
-#     data = {"name": mp.name,
-#             "image_url": "http://shreyaschand.com/img/mp/" + mp_name + ".png",
-#             "party": mp.party,
-#             "constituency": mp.constituency,
-#             "twitter_handle": mp.twitter_handle,
-#             "tweets": tweet_text(latest_tweets(mp.twitter_handle))}
-#     return render_to_response('mp.html', RequestContext(request, data))
+    return render_to_response('mp_overview.html', RequestContext(request, data))
+
+def mp_detail(request, mp_name):
+    mp = MP.objects.get(name=mp_name.replace('_', ' '))
+    data = {"mp": True,
+            "name": mp.name,
+            "image_url": "http://pie.shreyaschand.com/img/mp/" + mp_name + ".png",
+            "party": mp.party,
+            "constituency": mp.constituency,
+            "twitter_handle": mp.twitter_handle,
+            "tweets": tweet_text(latest_tweets(mp.twitter_handle))}
+    return render_to_response('mp_detail.html', RequestContext(request, data))
 
 TWITTER_ACCESS_TOKEN = os.environ['TWITTER_ACCESS_TOKEN']
 TWITTER_ACCESS_TOKEN_SECRET = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
