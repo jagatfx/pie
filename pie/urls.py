@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^$', 'website.views.home'),
     url(r'^mp/$', 'website.views.mp_overview'),
     url(r'^mp/(?P<mp_name>\w+)/$', 'website.views.mp_detail'),
-    url(r'^about/$', direct_to_template, {'template': 'about.html'}),
+    url(r'^about/$', direct_to_template, {'template': 'about.html', 'extra_context': {'about':True}}),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
