@@ -25,6 +25,7 @@ def mp_detail(request, mp_name):
             "party": mp.party,
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
-            "tweets": tweet_text(latest_tweets(mp.twitter_handle))}
+            "tweets_by_them": tweet_text(latest_tweets(mp.twitter_handle)),
+            "tweets_at_them": tweet_text(latest_tweets(mp.twitter_handle))} # CHANGE ME BRIIIANNNNN! D:
     return render_to_response('mp_detail.html', RequestContext(request, data))
 
