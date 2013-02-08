@@ -98,3 +98,12 @@ def safe(url):
 
 def json_decode(fn, *args):
     return json.loads(fn(*args))
+
+def linkify_tweet(twit):
+    '''Add links to twitter #hashtags'''
+    def linkify(term):
+        '''Linkify a single word'''
+        a = '<a href="https://twitter.com/search/realtime?q=%23{}&src=hash">'
+        return a.format(term) + term + '</a>'
+    twits = map(lambda x: linkify(x[1:]) if x[0] == '#' else x, twit.split())
+    return ' '.join(twits)
