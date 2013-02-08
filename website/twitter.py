@@ -88,7 +88,7 @@ def parse_tweet(tweet_list):
         month, day, year = data[1], data[2], data[-1]
         time = data[3][:-3] # currently returns as 24-hr time, hh:mm
         return "{0}, {1} {2}, {3}".format(time, month, day, year)
-    return [u'{0} - sent {1}'.format(tweet_text(t), tweet_date(t)) for t in tweet_list]
+    return [linkify_tweet(u'{0} - sent {1}'.format(tweet_text(t), tweet_date(t))) for t in tweet_list]
 
 def tweet_tweeter(tweet):
     return tweet['user']['screen_name']
@@ -103,7 +103,7 @@ def linkify_tweet(twit):
     '''Add links to twitter #hashtags'''
     def linkify(term):
         '''Linkify a single word'''
-        a = '<a href="https://twitter.com/search/realtime?q=%23{}&src=hash">'
+        a = '<a href="https://twitter.com/search/realtime?q=%23{}&src=hash" target="_blank">#'
         return a.format(term) + term + '</a>'
     twits = map(lambda x: linkify(x[1:]) if x[0] == '#' else x, twit.split())
     return ' '.join(twits)
