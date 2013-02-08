@@ -26,6 +26,6 @@ def mp_detail(request, mp_name):
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
             "tweets_by_them": parse_tweet(latest_tweets(mp.twitter_handle)),
-            "tweets_at_them": parse_tweet(relevant_tweets(mp_twitter=mp.twitter_handle, only_at=True))}
+            "tweets_at_them": parse_tweet(relevant_tweets('', mp_twitter=mp.twitter_handle, only_at=True))}
     return render_to_response('mp_detail.html', RequestContext(request, data))
 
