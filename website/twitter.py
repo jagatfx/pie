@@ -23,28 +23,30 @@ def latest_tweets(mp_twitter="SamGyimah", num_tweets=10):
         return tweets
     return json_decode(_api_helper)
 
-def relevant_tweets(mp_name, mp_twitter='', num_tweets=100):
+def relevant_tweets(mp_name, mp_twitter='', num_tweets=100, only_at=False):
     """Returns a list of the most recent tweets about MP or @MP. Currently hacks together a list of tweets @MP and a list of tweets mentioning MP."""
     def _api_helper(query):
         url = "https://api.twitter.com/1.1/search/tweets.json?q={0}&result_type=recent&count={1}".format(query, num_tweets)
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    tweets = json_decode(_api_helper, mp_name)['statuses']
     at_tweets = []
     if mp_twitter:
         at_tweets = json_decode(_api_helper, 'to:'+mp_twitter)['statuses']
+    if only_at:
+        return at_tweets
+    tweets = json_decode(_api_helper, mp_name)['statuses']
     return tweets + at_tweets
 
 def get_tweets(mp_name, mp_twitter=''):
-    """Returns tweets by the MP or about him."""
+    """Returns tweets by the MP or about him. Should only be used for data analysis."""
     def _get_mp_tweets():
         if mp_twitter:
-            return tweet_text(latest_tweets(mp_twitter=mp_twitter, num_tweets=10))
+            return parse_tweet(latest_tweets(mp_twitter=mp_twitter, num_tweets=10))
     def _get_mentions():
         matches = relevant_tweets(mp_name, mp_twitter)
         not_by_mp = filter(lambda t: tweet_tweeter(t) != mp_twitter, matches)
-        return tweet_text(not_by_mp)
+        return parse_tweet(not_by_mp)
     return _get_mp_tweets() + _get_mentions()
 
 
@@ -77,13 +79,16 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=""
     resp, content = client.request(url, method=http_method, body=post_body, headers=http_headers)
     return content
 
-def tweet_text(tweet_list):
-    """Returns a list of the tweet's text from a list of tweets."""
-    result = []
-    for tweet in tweet_list:
-        text = tweet["text"]
-        result.append(text)
-    return result
+def parse_tweet(tweet_list):
+    """Currently returns a list of "text - sent date" strings."""
+    def tweet_text(tweet):
+        return tweet["text"]
+    def tweet_date(tweet):
+        data = tweet["created_at"].split()
+        month, day, year = data[1], data[2], data[-1]
+        time = data[3][:-3] # currently returns as 24-hr time, hh:mm
+        return "{0}, {1} {2}, {3}".format(time, month, day, year)
+    return [u'{0} - sent {1}'.format(tweet_text(t), tweet_date(t)) for t in tweet_list]
 
 def tweet_tweeter(tweet):
     return tweet['user']['screen_name']
@@ -94,3 +99,11 @@ def safe(url):
 def json_decode(fn, *args):
     return json.loads(fn(*args))
 
+def linkify_tweet(twit):
+    '''Add links to twitter #hashtags'''
+    def linkify(term):
+        '''Linkify a single word'''
+        a = '<a href="https://twitter.com/search/realtime?q=%23{}&src=hash">'
+        return a.format(term) + term + '</a>'
+    twits = map(lambda x: linkify(x[1:]) if x[0] == '#' else x, twit.split())
+    return ' '.join(twits)
