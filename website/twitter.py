@@ -103,7 +103,7 @@ def linkify_tweet(tweet):
     '''Add links to twitter #hashtags'''
     def linkify(term):
         '''Linkify a single word'''
-        a = '<a href="https://twitter.com/search/realtime?q=%23{}&src=hash" target="_blank">#'
-        return a.format(term) + term + '</a>'
-    tweets = map(lambda x: linkify(x[1:]) if x[0] == '#' else x, tweet.split())
+        a = '<a href="https://twitter.com/search/realtime?q=%23{0}&src=hash" target="_blank">'
+        return a.format(term[1:]) + term + '</a>'
+    tweets = map(lambda x: linkify(x) if x[0] == '#' else x, tweet.split())
     return ' '.join(tweets)
