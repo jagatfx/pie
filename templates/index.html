@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        setInterval(fetchTweets, 20000);
+    });
+</script>
+{% endblock %}
 {% block title %}Home{% endblock %}
 {% block content %}
 
