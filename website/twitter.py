@@ -23,17 +23,19 @@ def latest_tweets(mp_twitter="SamGyimah", num_tweets=10):
         return tweets
     return json_decode(_api_helper)
 
-def relevant_tweets(mp_name, mp_twitter='', num_tweets=100):
+def relevant_tweets(mp_name, mp_twitter='', num_tweets=100, only_at=False):
     """Returns a list of the most recent tweets about MP or @MP. Currently hacks together a list of tweets @MP and a list of tweets mentioning MP."""
     def _api_helper(query):
         url = "https://api.twitter.com/1.1/search/tweets.json?q={0}&result_type=recent&count={1}".format(query, num_tweets)
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    tweets = json_decode(_api_helper, mp_name)['statuses']
     at_tweets = []
     if mp_twitter:
         at_tweets = json_decode(_api_helper, 'to:'+mp_twitter)['statuses']
+    if only_at:
+        return at_tweets
+    tweets = json_decode(_api_helper, mp_name)['statuses']
     return tweets + at_tweets
 
 def get_tweets(mp_name, mp_twitter=''):
