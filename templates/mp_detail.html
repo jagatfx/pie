@@ -18,7 +18,7 @@
 <div class="row-fluid mp-row">
     <div class="well span5">
         <p><span class="lead">Latest Twitter Mentions </span>(Tweeted at <a href="https://twitter.com/{{ twitter_handle }}" target="_blank">{{ twitter_handle }}</a>):</p>
-        {% for tweet in tweets_by_them %}
+        {% for tweet in tweets_at_them %}
             <p><i class="icon-chevron-right"></i>{{ tweet|safe}}</p>
         {% endfor %}
     </div>
