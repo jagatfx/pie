@@ -33,3 +33,9 @@ class TermAlias(models.Model):
     def __unicode__(self):
         return self.term.title + ": " + self.alias
 
+class Sentiment(models.Model):
+    word = models.CharField(max_length=75)
+    value = models.FloatField()
+
+    def __unicode__(self):
+        return self.word + ": " + self.value
