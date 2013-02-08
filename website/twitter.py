@@ -37,14 +37,14 @@ def relevant_tweets(mp_name, mp_twitter='', num_tweets=100):
     return tweets + at_tweets
 
 def get_tweets(mp_name, mp_twitter=''):
-    """Returns tweets by the MP or about him."""
+    """Returns tweets by the MP or about him. Should only be used for data analysis."""
     def _get_mp_tweets():
         if mp_twitter:
-            return tweet_text(latest_tweets(mp_twitter=mp_twitter, num_tweets=10))
+            return parse_tweet(latest_tweets(mp_twitter=mp_twitter, num_tweets=10))
     def _get_mentions():
         matches = relevant_tweets(mp_name, mp_twitter)
         not_by_mp = filter(lambda t: tweet_tweeter(t) != mp_twitter, matches)
-        return tweet_text(not_by_mp)
+        return parse_tweet(not_by_mp)
     return _get_mp_tweets() + _get_mentions()
 
 
@@ -77,13 +77,16 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=""
     resp, content = client.request(url, method=http_method, body=post_body, headers=http_headers)
     return content
 
-def tweet_text(tweet_list):
-    """Returns a list of the tweet's text from a list of tweets."""
-    result = []
-    for tweet in tweet_list:
-        text = tweet["text"]
-        result.append(text)
-    return result
+def parse_tweet(tweet_list):
+    """Currently returns a list of "text - sent date" strings."""
+    def tweet_text(tweet):
+        return tweet["text"]
+    def tweet_date(tweet):
+        data = tweet["created_at"].split()
+        month, day, year = data[1], data[2], data[-1]
+        time = data[3][:-3] # currently returns as 24-hr time, hh:mm
+        return "{0}, {1} {2}, {3}".format(time, month, day, year)
+    return [u'{0} - sent {1}'.format(tweet_text(t), tweet_date(t)) for t in tweet_list]
 
 def tweet_tweeter(tweet):
     return tweet['user']['screen_name']
@@ -93,4 +96,3 @@ def safe(url):
 
 def json_decode(fn, *args):
     return json.loads(fn(*args))
-
