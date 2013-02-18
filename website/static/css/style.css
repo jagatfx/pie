@@ -28,3 +28,12 @@
 
 .mp-row {
   padding-bottom: 10px; }
+
+.carousel-image {
+  min-height:30%;
+  min-width:100%;
+}
+
+.carousel-inner {
+  overflow:hidden;
+}
