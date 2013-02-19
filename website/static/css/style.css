@@ -29,11 +29,35 @@
 .mp-row {
   padding-bottom: 10px; }
 
-.carousel-image {
-  min-height:30%;
+#introCarousel, #liveTweets {
+  width:100%;
+  max-width:1400px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.carousel-container {
+  height:500px;
+  width:100%;
+  overflow:hidden;
+}
+
+.carousel-container img {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
   min-width:100%;
 }
 
-.carousel-inner {
-  overflow:hidden;
+.carousel-caption {
+  color:#eee;
 }
+
+/* .carousel-control { */
+/*   visibility:hidden; */
+/* } */
+
+/* .carousel-control a:hover { */
+/*   visibility:visible; */
+/* } */
