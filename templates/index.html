@@ -2,6 +2,22 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
+<div id="beta" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="inlineCenter">PIE is currently in beta!</h2>
+  </div>
+  <div class="modal-body">
+    <p class="muted inlineCenter">Our site is active, but we're still working on our recipe.</p>
+    <p>Hello! If you're reading this, then you're probably a trusted friend or someone we'd like to get feedback from. Welcome!</p>
+    <p>What do you think about PIE? What do you like and what can we improve on? If you had a magic wand and could add one feature to our site, what would it be?</p>
+    <p>Send us your thoughts at <a href="mailto:pie.pulse@gmail.com">pie.pulse@gmail.com</a>. Thank you!</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
+<script>$('#beta').modal()</script>
 <div id="introCarousel" class="carousel slide">
   <ol class="carousel-indicators">
     <li data-target="#introCarousel" data-slide-to="0" class="active"></li>
