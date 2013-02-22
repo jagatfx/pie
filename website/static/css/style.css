@@ -28,3 +28,41 @@
 
 .mp-row {
   padding-bottom: 10px; }
+
+#introCarousel, #liveTweets {
+  min-width: 1000px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto; }
+
+.carousel-container {
+  height: 500px;
+  width: 100%;
+  overflow: hidden; }
+
+.carousel-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-width: 100%; }
+
+.carousel-caption {
+  color: #eee; }
+
+#tweetWall {
+  height: 200px;
+  overflow-y: auto; }
+
+.modal-header {
+  padding: 9px 15px 0px; }
+
+.modal-body p {
+  font-size: 15px; }
+
+/* .carousel-control { */
+/*   visibility:hidden; */
+/* } */
+/* .carousel-control a:hover { */
+/*   visibility:visible; */
+/* } */
