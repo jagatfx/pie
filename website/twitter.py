@@ -100,10 +100,21 @@ def json_decode(fn, *args):
     return json.loads(fn(*args))
 
 def linkify_tweet(tweet):
-    '''Add links to twitter #hashtags'''
-    def linkify(term):
-        '''Linkify a single word'''
+    '''Add links to twitter tweets.'''
+    def wrapall(word_list, cond, proc):
+        '''Wrap words given a condition func and processing func'''
+        return map(lambda x: proc(x) if cond(x) else x, word_list)
+    def hashify(term):
         a = '<a href="https://twitter.com/search/realtime?q=%23{0}&src=hash" target="_blank">'
         return a.format(term[1:]) + term + '</a>'
-    tweets = map(lambda x: linkify(x) if x[0] == '#' else x, tweet.split())
-    return ' '.join(tweets)
+    def atify(term):
+        a = '<a href="https://twitter.com/{}" target="_blank">{}</a>'
+        return a.format(term, term)
+    def linkify(term):
+        a = '<a href="{}" target="_blank">{}</a>'
+        return a.format(term, term)
+    words = tweet.split()
+    words = wrapall(words, lambda x: x[0] == '#', hashify)
+    words = wrapall(words, lambda x: x[0] == '@', atify)
+    # words = wrapall(words, lambda x: x[:len('http')] == 'http', linkify) # disabled for security reasons
+    return ' '.join(words)
