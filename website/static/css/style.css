@@ -49,6 +49,8 @@
 
 .carousel-caption {
   color: #eee; }
+  .carousel-caption a, .carousel-caption a:hover, .carousel-caption a:visited {
+    color: #eee; }
 
 #tweetWall {
   height: 200px;
