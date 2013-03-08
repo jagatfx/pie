@@ -81,14 +81,12 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=""
 
 def parse_tweet(tweet_list):
     """Currently returns a list of "text - sent date" strings."""
-    def tweet_text(tweet):
-        return tweet["text"]
     def tweet_date(tweet):
         data = tweet["created_at"].split()
         month, day, year = data[1], data[2], data[-1]
         time = data[3][:-3] # currently returns as 24-hr time, hh:mm
         return "{0}, {1} {2}, {3}".format(time, month, day, year)
-    return [linkify_tweet(u'{0} - sent {1}'.format(tweet_text(t), tweet_date(t))) for t in tweet_list]
+    return [linkify_tweet(u'{0} - sent {1}'.format(t["text"], tweet_date(t))) for t in tweet_list]
 
 def tweet_tweeter(tweet):
     return tweet['user']['screen_name']
