@@ -81,14 +81,12 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=""
 
 def parse_tweet(tweet_list):
     """Currently returns a list of "text - sent date" strings."""
-    def tweet_text(tweet):
-        return tweet["text"]
     def tweet_date(tweet):
         data = tweet["created_at"].split()
         month, day, year = data[1], data[2], data[-1]
         time = data[3][:-3] # currently returns as 24-hr time, hh:mm
         return "{0}, {1} {2}, {3}".format(time, month, day, year)
-    return [linkify_tweet(u'{0} - sent {1}'.format(tweet_text(t), tweet_date(t))) for t in tweet_list]
+    return [linkify_tweet(u'{0} - sent {1}'.format(t["text"], tweet_date(t))) for t in tweet_list]
 
 def tweet_tweeter(tweet):
     return tweet['user']['screen_name']
@@ -100,10 +98,21 @@ def json_decode(fn, *args):
     return json.loads(fn(*args))
 
 def linkify_tweet(tweet):
-    '''Add links to twitter #hashtags'''
-    def linkify(term):
-        '''Linkify a single word'''
+    '''Add links to twitter tweets.'''
+    def wrapall(word_list, cond, proc):
+        '''Wrap words given a condition func and processing func'''
+        return map(lambda x: proc(x) if cond(x) else x, word_list)
+    def hashify(term):
         a = '<a href="https://twitter.com/search/realtime?q=%23{0}&src=hash" target="_blank">'
         return a.format(term[1:]) + term + '</a>'
-    tweets = map(lambda x: linkify(x) if x[0] == '#' else x, tweet.split())
-    return ' '.join(tweets)
+    def atify(term):
+        a = '<a href="https://twitter.com/{}" target="_blank">{}</a>'
+        return a.format(term, term)
+    def linkify(term):
+        a = '<a href="{}" target="_blank">{}</a>'
+        return a.format(term, term)
+    words = tweet.split()
+    words = wrapall(words, lambda x: x[0] == '#', hashify)
+    words = wrapall(words, lambda x: x[0] == '@', atify)
+    # words = wrapall(words, lambda x: x[:len('http')] == 'http', linkify) # disabled for security reasons
+    return ' '.join(words)

@@ -5,13 +5,12 @@ from django.views.generic.simple import direct_to_template
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('website.views',
     # Examples:
     # url(r'^$', 'pie.views.home', name='home'),
     # url(r'^pie/', include('pie.foo.urls')),
-    url(r'^$', 'website.views.home'),
-    url(r'^mp/$', 'website.views.mp_overview'),
-    url(r'^mp/(?P<mp_name>\w+)/$', 'website.views.mp_detail'),
+    url(r'^$', 'home'),
+    url(r'^dashboard/$', direct_to_template, {'template': 'dashboard.html', 'extra_context': {'dash':True}}),
     url(r'^about/$', direct_to_template, {'template': 'about.html', 'extra_context': {'about':True}}),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -19,4 +18,15 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+)
+urlpatterns += patterns('website.views',
+    url(r'^politicos/$', 'politicos_overview', {'type': 'Politico'}),
+    url(r'^politicos/lord/$', 'politicos_overview', {'type': 'Lord'}),
+    url(r'^politicos/lord/(?P<mp_name>\w+)/$', 'lord_detail'),
+    url(r'^politicos/mp/$', 'politicos_overview', {'type': 'MP'}),
+    url(r'^politicos/mp/(?P<mp_name>\w+)/$', 'mp_detail'),
+    url(r'^media/$', 'media_overview'),
+    url(r'^media/(?P<mp_name>\w+)/$', 'media_detail'),
+    url(r'^issues/$', 'issues_overview'),
+    url(r'^issues/(?P<mp_name>\w+)/$', 'issues_detail'),
 )
