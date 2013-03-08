@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h3>{{ title }}</h3>
+{% if politicos %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Constituency</th>
+                <th>Party</th>
+                {% if title == "All Politicos" %}
+                <th>Type</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for politico in politicos %}
+            <tr>
+                <td><a href="/politicos/{{ politico.type }}/{{ politico.url }}">{{ politico.name }}</a></td>
+                <td>{{ politico.constituency }}</td>
+                <td>{{ politico.party }}</td>
+                {% if title == "All Politicos" %}
+                <td>MP</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    Oops! No records were found! We'll be sure to work on this soon.
+{% endif %}
+{% endblock %}
+
+
+
+
