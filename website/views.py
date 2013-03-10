@@ -40,7 +40,8 @@ def mp_detail(request, mp_name):
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
             "tweets_by_them": parse_tweet(latest_tweets(mp.twitter_handle)),
-            "tweets_at_them": parse_tweet(relevant_tweets('', mp.twitter_handle, 10, True))}
+            "tweets_at_them": parse_tweet(at_tweets(mp.twitter_handle, 10))
+            }
     return render_to_response('politico_detail.html', RequestContext(request, data))
 
 
@@ -53,5 +54,6 @@ def lord_detail(request, mp_name):
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
             "tweets_by_them": parse_tweet(latest_tweets(mp.twitter_handle)),
-            "tweets_at_them": parse_tweet(relevant_tweets('', mp.twitter_handle, 10, True))}
+            "tweets_at_them": parse_tweet(at_tweets(mp.twitter_handle, 10))
+            }
     return render_to_response('politico_detail.html', RequestContext(request, data))
