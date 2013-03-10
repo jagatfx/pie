@@ -86,7 +86,10 @@ def parse_tweet(tweet_list):
         month, day, year = data[1], data[2], data[-1]
         time = data[3][:-3] # currently returns as 24-hr time, hh:mm
         return "{0}, {1} {2}, {3}".format(time, month, day, year)
-    return [linkify_tweet(u'{0} - sent {1}'.format(t["text"], tweet_date(t))) for t in tweet_list]
+    try:
+        return [linkify_tweet(u'{0} - sent {1}'.format(t["text"], tweet_date(t))) for t in tweet_list]
+    except TypeError as e:
+        return ["Sorry, we are unable to access these tweets. Perhaps they may be protected."]
 
 def tweet_tweeter(tweet):
     return tweet['user']['screen_name']
