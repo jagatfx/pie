@@ -89,7 +89,7 @@ def parse_tweet(tweet_list):
     try:
         return [linkify_tweet(u'{0} - sent {1}'.format(t["text"], tweet_date(t))) for t in tweet_list]
     except TypeError as e:
-        return ["Sorry, we are unable to access these tweets. Perhaps they may be protected."]
+        return ["Sorry, we are unable to access these tweets. Perhaps they are protected."]
 
 def tweet_tweeter(tweet):
     return tweet['user']['screen_name']
