@@ -20,13 +20,17 @@
     <div class="well span6">
         <p><span class="lead">Latest Twitter Mentions </span>(Tweeted at <a href="https://twitter.com/{{ twitter_handle }}" target="_blank">{{ twitter_handle }}</a>):</p>
         {% for tweet in tweets_at_them %}
-            <p><i class="icon-chevron-right"></i>{{ tweet|safe}}</p>
+            <p><i class="icon-chevron-right"></i>{{ tweet.from|safe }}: {{ tweet.content|safe }} - {{ tweet.date }}</p>
         {% endfor %}
     </div>
     <div class="well span6">
-        <p><span class="lead">Latest Tweets </span>(About <a href="https://twitter.com/{{ twitter_handle }}" target="_blank">{{ twitter_handle }}</a>):</p>
+        <p><span class="lead">Latest Tweets </span>(Tweeted by <a href="https://twitter.com/{{ twitter_handle }}" target="_blank">{{ twitter_handle }}</a>):</p>
         {% for tweet in tweets_by_them %}
-            <p><i class="icon-chevron-right"></i>{{ tweet|safe}}</p>
+            {% if tweet.content %}
+            <p><i class="icon-chevron-right"></i>{{ tweet.content|safe }} - {{ tweet.date }}</p>
+            {% else %}
+            <p>Sorry, we are unable to access these tweets. Perhaps they are protected.</p>
+            {% endif %}
         {% endfor %}
     </div>
 </div>
