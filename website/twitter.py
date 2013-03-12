@@ -79,7 +79,7 @@ def parse_tweet(tweet_list):
                  'content':linkify_tweet(t['text']),
                  'date':tweet_date(t)} for t in tweet_list]
     except TypeError as e:
-        return [{'content':"Sorry, we are unable to access these tweets. Perhaps they are protected.", 'from':'', 'date':''}]
+        return [{'content':'', 'from':'', 'date':''}]
 
 def safe(url):
     return urllib.quote(url, '/:-&?=')
