@@ -17,9 +17,9 @@ def get_politico_overview(type):
     if type == "Lord":
         politico_list = []
     elif type == "MP":
-        politico_list = MP.objects.all()
+        politico_list = MP.objects.all().order_by('name')
     else:
-        politico_list = MP.objects.all()
+        politico_list = MP.objects.all().order_by('name')
 
     for politico in politico_list:
         politico_desc = {"name": politico.name,
@@ -39,8 +39,8 @@ def mp_detail(request, mp_name):
             "party": mp.party,
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
-            "tweets_by_them": parse_tweet(latest_tweets(mp.twitter_handle)),
-            "tweets_at_them": parse_tweet(at_tweets(mp.twitter_handle, 10))
+            "tweets_by_them": parse_tweet(tweets_by(mp.twitter_handle)),
+            "tweets_at_them": parse_tweet(tweets_at(mp.twitter_handle))
             }
     return render_to_response('politico_detail.html', RequestContext(request, data))
 
@@ -53,7 +53,7 @@ def lord_detail(request, mp_name):
             "party": mp.party,
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
-            "tweets_by_them": parse_tweet(latest_tweets(mp.twitter_handle)),
-            "tweets_at_them": parse_tweet(at_tweets(mp.twitter_handle, 10))
+            "tweets_by_them": parse_tweet(tweets_by(mp.twitter_handle)),
+            "tweets_at_them": parse_tweet(tweets_at(mp.twitter_handle))
             }
     return render_to_response('politico_detail.html', RequestContext(request, data))
