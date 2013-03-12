@@ -17,9 +17,9 @@ def get_politico_overview(type):
     if type == "Lord":
         politico_list = []
     elif type == "MP":
-        politico_list = MP.objects.all()
+        politico_list = MP.objects.all().order_by('name')
     else:
-        politico_list = MP.objects.all()
+        politico_list = MP.objects.all().order_by('name')
 
     for politico in politico_list:
         politico_desc = {"name": politico.name,
