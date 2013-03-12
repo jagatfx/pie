@@ -68,7 +68,7 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=""
     return content
 
 def parse_tweet(tweet_list):
-    """Currently returns a list of "text - sent date" strings."""
+    """Returns a dict with keys 'from', 'content', and 'date'."""
     def tweet_date(tweet):
         data = tweet["created_at"].split()
         month, day, year = data[1], data[2], data[-1]
@@ -79,7 +79,7 @@ def parse_tweet(tweet_list):
                  'content':linkify_tweet(t['text']),
                  'date':tweet_date(t)} for t in tweet_list]
     except TypeError as e:
-        return [{'from':'', 'content':"Sorry, we are unable to access these tweets. Perhaps they are protected.", 'date':''}]
+        return [{'content':"Sorry, we are unable to access these tweets. Perhaps they are protected.", 'from':'', 'date':''}]
 
 def safe(url):
     return urllib.quote(url, '/:-&?=')
