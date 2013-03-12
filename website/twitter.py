@@ -21,7 +21,7 @@ def latest_tweets(mp_twitter="SamGyimah", num_tweets=10):
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return json_decode(_api_helper)
+    return parse_tweet(json_decode(_api_helper))
 
 def at_tweets(mp_twitter, num_tweets=100):
     """Returns a list of the most recent tweets @MP."""
@@ -30,7 +30,7 @@ def at_tweets(mp_twitter, num_tweets=100):
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return json_decode(_api_helper)['statuses']
+    return parse_tweet(json_decode(_api_helper)['statuses'])
 
 def mentioned_tweets(mp_name, num_tweets=100):
     def _api_helper():
@@ -38,7 +38,7 @@ def mentioned_tweets(mp_name, num_tweets=100):
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return json_decode(_api_helper)['statuses']
+    return parse_tweet(json_decode(_api_helper)['statuses'])
 
 def relevant_tweets(mp_name, mp_twitter='', num_tweets=100, only_at=False):
     """Returns a list of the most recent tweets about MP or @MP. Currently hacks together a list of tweets @MP and a list of tweets mentioning MP."""
@@ -88,16 +88,17 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=""
 
 def parse_tweet(tweet_list):
     """Currently returns a list of "text - sent date" strings."""
-    # print tweet_list[0]
     def tweet_date(tweet):
         data = tweet["created_at"].split()
         month, day, year = data[1], data[2], data[-1]
         time = data[3][:-3] # currently returns as 24-hr time, hh:mm
         return "{0}, {1} {2}, {3}".format(time, month, day, year)
     try:
-        return [linkify_tweet(u'@{0}: {1} - sent {2}'.format(t["user"]["screen_name"], t["text"], tweet_date(t))) for t in tweet_list]
+        return [{'from':linkify_tweet('@'+t['user']['screen_name']),
+                 'content':linkify_tweet(t['text']),
+                 'date':tweet_date(t)} for t in tweet_list]
     except TypeError as e:
-        return ["Sorry, we are unable to access these tweets. Perhaps they are protected."]
+        return [{'from':'', 'content':"Sorry, we are unable to access these tweets. Perhaps they are protected.", 'date':''}]
 
 def safe(url):
     return urllib.quote(url, '/:-&?=')
