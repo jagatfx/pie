@@ -32,6 +32,7 @@ def tweets_at(mp_twitter, num_tweets=10):
         return tweets
     return parse_tweet(json.loads(_api_helper())['statuses'])
 
+## UNUSED ##
 def mentioned_tweets(mp_name, num_tweets=100):
     def _api_helper():
         url = "https://api.twitter.com/1.1/search/tweets.json?q={0}&result_type=recent&count={1}".format(mp_name, num_tweets)
@@ -56,26 +57,6 @@ def get_tweets(mp_name, mp_twitter=''):
     not_by_mp = filter(lambda t: t['user']['screen_name'] != mp_twitter, matches)
     all_tweets += parse_tweet(not_by_mp)
     return all_tweets
-
-### Analysis
-
-# ALL_KEYWORDS = [t.title for t in Term.objects.all()]
-
-def keyword_filter(text_list, keyword):
-    # aliases = set("INSERT CODE HERE")
-    aliases = set(["exactly", "referendum"])
-    # Should this cut out the word matches as well in case a keyword is positive?
-    return filter(lambda t: set(t.split(' ')) & aliases, text_list)
-
-def analyze_sentiment(text_list, keyword):
-    matched_tweets = keyword_filter(text_list, keyword)
-    total_sentiment, num_tweets = 0, 0
-    for match in matched_tweets:
-        s = get_sentiment(match) ## Must write get_sentiment function
-        if s:
-            total_sentiment += s
-            num_tweets += 1
-    return (keyword, total_sentiment/num_tweets)
 
 ### Utility functions
 
