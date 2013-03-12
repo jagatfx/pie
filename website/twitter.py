@@ -14,23 +14,23 @@ TWITTER_CONSUMER_SECRET = os.environ['TWITTER_CONSUMER_SECRET']
 
 ### Twitter queries
 
-def latest_tweets(mp_twitter="SamGyimah", num_tweets=10):
+def tweets_by(mp_twitter, num_tweets=10):
     """Returns a list of the most recent tweets by the MP. Each tweet is a dictionary."""
     def _api_helper():
         url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name={0}&count={1}".format(mp_twitter, num_tweets)
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return parse_tweet(json_decode(_api_helper))
+    return parse_tweet(json.loads(_api_helper()))
 
-def at_tweets(mp_twitter, num_tweets=100):
+def tweets_at(mp_twitter, num_tweets=10):
     """Returns a list of the most recent tweets @MP."""
     def _api_helper():
         url = "https://api.twitter.com/1.1/search/tweets.json?q=to:{0}&result_type=recent&count={1}".format(mp_twitter, num_tweets)
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return parse_tweet(json_decode(_api_helper)['statuses'])
+    return parse_tweet(json.loads(_api_helper())['statuses'])
 
 def mentioned_tweets(mp_name, num_tweets=100):
     def _api_helper():
@@ -38,20 +38,20 @@ def mentioned_tweets(mp_name, num_tweets=100):
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return parse_tweet(json_decode(_api_helper)['statuses'])
+    return parse_tweet(json.loads(_api_helper())['statuses'])
 
 def relevant_tweets(mp_name, mp_twitter='', num_tweets=100, only_at=False):
     """Returns a list of the most recent tweets about MP or @MP. Currently hacks together a list of tweets @MP and a list of tweets mentioning MP."""
     if mp_twitter:
-        at_tweets = at_tweets(mp_twitter)
+        tweets_at = tweets_at(mp_twitter)
     mentions = mentioned_tweets(mp_name)
-    return mentions + at_tweets
+    return mentions + tweets_at
 
 def get_tweets(mp_name, mp_twitter=''):
     """Returns tweets by the MP or about him. Should only be used for data analysis."""
     all_tweets = []
     if mp_twitter:
-        all_tweets += parse_tweet(latest_tweets(mp_twitter=mp_twitter, num_tweets=10))
+        all_tweets += parse_tweet(tweets_by(mp_twitter))
     matches = relevant_tweets(mp_name, mp_twitter)
     not_by_mp = filter(lambda t: t['user']['screen_name'] != mp_twitter, matches)
     all_tweets += parse_tweet(not_by_mp)
@@ -102,9 +102,6 @@ def parse_tweet(tweet_list):
 
 def safe(url):
     return urllib.quote(url, '/:-&?=')
-
-def json_decode(fn, *args):
-    return json.loads(fn(*args))
 
 def linkify_tweet(tweet):
     '''Add links to twitter tweets.'''
