@@ -1,4 +1,37 @@
 {% extends "base.html" %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
+
+<div id="comingsoon" class="modal hide fade">
+  <h2 class="inlineCenter">Dashboard coming soon!</h2>
+</div>
+<script>$('#comingsoon').modal()</script>
+
+<div id="hot-topics" class="row-fluid">
+  <div id="trending" class="span6 well">
+    <p class="lead">Trending Issues</p>
+    <p>What's everyone talking about? What new issue is getting picked up?</p>
+  </div>
+  <div id="intense" class="span6 well">
+    <p class="lead">Intense Issues</p>
+    <p>Which politicos are popular? Which issues are getting positive reactions?</p>
+  </div>
+</div>
+<div id="mytopics" class="row-fluid">
+  <div id="myslice" class="span6 well">
+    <p class="lead">My Slice</p>
+    <p>Politicos and issues I'm watching</p>
+  </div>
+  <div id="pieanalytics" class="span6 well">
+    <p class="lead">PIE Analytics</p>
+    <p></p>
+  </div>
+</div>
+<div id="tweetStream" class="well">
+  <p class="lead">Live MP Twitter Feed</p>
+  <div id="tweetWall">
+    <p><i class="icon-chevron-right"></i>From Placeholder MP (<a href="https://twitter.com/@PIE_Politics" target="_blank">@PIE_Politics</a>): placeholder tweet text placeholder tweet text lorem ipsum egestas eget quam - sent 00:01, Feb 21, 2013</p>
+  </div>
+</div>
+
 {% endblock %}
