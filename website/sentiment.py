@@ -1,14 +1,4 @@
 from string import ascii_letters
-from io import open
-
-def load_sentiments(file_name= "sentiments.csv"):
-    sentiments = {}
-    for line in open(file_name, encoding='utf8'):
-        word, score = line.split(',')
-        sentiments[word] = float(score.strip())
-    return sentiments
-
-word_sentiments = load_sentiments()
 
 def extract_words(text):
     for char in text:
@@ -17,7 +7,7 @@ def extract_words(text):
     return text.split()
 
 def get_word_sentiment(word):
-    return word_sentiments.get(word, None)
+    return Sentiment.objects.get(word=word).value
 
 def analyze_tweet_sentiment(tweet):
     words = extract_words(tweet)
