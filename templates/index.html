@@ -55,18 +55,6 @@
 <div id="liveTweets" class="well">
   <p class="lead">Live MP Twitter Feed</p>
   <div id="tweetWall">
-    <p><i class="icon-chevron-right"></i>From Placeholder MP (<a href="https://twitter.com/@PIE_Politics" target="_blank">@PIE_Politics</a>): placeholder tweet text placeholder tweet text lorem ipsum egestas eget quam - sent 00:01, Feb 21, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Alistair Carmichael (<a href="https://twitter.com/@acarmichaelmp" target="_blank">@acarmichaelmp</a>): @kavya_kaushik Send a DM - sent 08:53, Feb 10, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Alistair Carmichael (<a href="https://twitter.com/@acarmichaelmp" target="_blank">@acarmichaelmp</a>): @_Andrewbain Good to meet you and good luck with the election! - sent 23:06, Feb 08, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Gemma Doyle (<a href="https://twitter.com/@GemmaWDMP" target="_blank">@GemmaWDMP</a>): @SusanonSusan hi Susan - shadow ministers don't sign EDMs. If u send me an email I will be able 2 reply/take up the issue - sent 00:36, Feb 22, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Gemma Doyle (<a href="https://twitter.com/@GemmaWDMP" target="_blank">@GemmaWDMP</a>): @pamela_nash only in lanarkshire - sent 23:01, Feb 21, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Gemma Doyle (<a href="https://twitter.com/@GemmaWDMP" target="_blank">@GemmaWDMP</a>): RT @STVNews: Glasgow University students reject independence in mock referendum http://t.co/eP5KCJsqcL - sent 21:46, Feb 21, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Gemma Doyle (<a href="https://twitter.com/@GemmaWDMP" target="_blank">@GemmaWDMP</a>): @509298 sure, it's standard parly end @parliament.uk and beginning is http://t.co/bKp5u7X9 (I'm not odd just trying 2 reduce spam!) cheers - sent 10:41, Feb 20, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Gemma Doyle (<a href="https://twitter.com/@GemmaWDMP" target="_blank">@GemmaWDMP</a>): RT @stephenboydstuc: Again, Scot Govt trumpeting youth unemployment fall on basis of UNPUBLISHED figures. Transpired last month that sta ... - sent 10:10, Feb 20, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Gemma Doyle (<a href="https://twitter.com/@GemmaWDMP" target="_blank">@GemmaWDMP</a>): RT @stephenboydstuc: after ticking down over the last few months, youth JSA starts to rise again in Scotland: 2.5k more 18-24 yr olds cl ... - sent 10:10, Feb 20, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Gemma Doyle (<a href="https://twitter.com/@GemmaWDMP" target="_blank">@GemmaWDMP</a>): RT @stephenboydstuc: In terms of employment, Scotland's performance over the year to December is worryingly poor: rate actually fell in ... - sent 10:09, Feb 20, 2013</p>    
-    <p><i class="icon-chevron-right"></i>From Alistair Carmichael (<a href="https://twitter.com/@acarmichaelmp" target="_blank">@acarmichaelmp</a>): RT @UnstFest: We know it can get windy in Shetland, but it's not very often you see the waves this high. Photo by Rory Goodlad. http:/ ... - sent 14:48, Feb 05, 2013</p>
-    <p><i class="icon-chevron-right"></i>From Alistair Carmichael (<a href="https://twitter.com/@acarmichaelmp" target="_blank">@acarmichaelmp</a>): @stephen_gilbert Just delivered one of the finest speeches I have heard in almost 12 years as an MP. Proud to have him as a colleague. - sent 14:26, Feb 05, 2013</p>
   </div>
 </div>
 
@@ -76,7 +64,8 @@
 <script>$('#beta').modal()</script>
 <script>
     $(document).ready(function() {
-        setInterval(fetchTweets, 20000);
+        fetchTweets();
+        setInterval(fetchTweets, 30000);
     });
 </script>
 {% endblock %}
