@@ -62,6 +62,12 @@
 .modal-body p {
   font-size: 15px; }
 
+.positive {
+  color: green; }
+
+.negative {
+  color: red; }
+
 /* .carousel-control { */
 /*   visibility:hidden; */
 /* } */

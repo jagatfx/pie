@@ -84,11 +84,24 @@ def parse_tweets(tweet_list):
         time = data[3][:-3] # currently returns as 24-hr time, hh:mm
         return "{0}, {1} {2}, {3}".format(time, month, day, year)
     try:
-        return [{'from':linkify_tweet('@'+t['user']['screen_name']),
-                 'content':linkify_tweet(t['text']),
-                 'date':tweet_date(t),
-                 'sentiment': str(analyze_tweet_sentiment(t['text']))[:4]}
-                for t in tweet_list]
+        result = []
+        for t in tweet_list:
+            tweet_dict = {'from':linkify_tweet('@'+t['user']['screen_name']),
+                          'content':linkify_tweet(t['text']),
+                          'date':tweet_date(t)}
+            sent = analyze_tweet_sentiment(t['text'])
+
+            if sent > 0:
+                sent = '<span class="positive">' + str(sent)[:4]
+            elif sent < 0:
+                sent = '<span class="negative">' + str(sent)[:4]
+            else:
+                sent = '<span class="muted">' + str(sent)[:4]
+            tweet_dict['sentiment'] = sent + '</span>'
+
+            result.append(tweet_dict)
+
+        return result
     except TypeError as e:
         return [{'content':'', 'from':'', 'date':''}]
 
