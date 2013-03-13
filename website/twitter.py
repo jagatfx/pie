@@ -21,7 +21,7 @@ def tweets_by(mp_twitter, num_tweets=10):
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return parse_tweet(json.loads(_api_helper()))
+    return parse_tweets(json.loads(_api_helper()))
 
 def tweets_at(mp_twitter, num_tweets=10):
     """Returns a list of the most recent tweets @MP."""
@@ -30,7 +30,15 @@ def tweets_at(mp_twitter, num_tweets=10):
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return parse_tweet(json.loads(_api_helper())['statuses'])
+    return parse_tweets(json.loads(_api_helper())['statuses'])
+
+def tweets_all(num_tweets=10):
+    def _api_helper():
+        url = "https://api.twitter.com/1.1/lists/statuses.json?list_id=86633145&count={0}".format(num_tweets)
+        safe_url = safe(url)
+        tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
+        return tweets
+    return parse_tweets(json.loads(_api_helper()))
 
 ## UNUSED ##
 def mentioned_tweets(mp_name, num_tweets=100):
@@ -39,7 +47,7 @@ def mentioned_tweets(mp_name, num_tweets=100):
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return parse_tweet(json.loads(_api_helper())['statuses'])
+    return parse_tweets(json.loads(_api_helper())['statuses'])
 
 def relevant_tweets(mp_name, mp_twitter='', num_tweets=100, only_at=False):
     """Returns a list of the most recent tweets about MP or @MP. Currently hacks together a list of tweets @MP and a list of tweets mentioning MP."""
@@ -52,10 +60,10 @@ def get_tweets(mp_name, mp_twitter=''):
     """Returns tweets by the MP or about him. Should only be used for data analysis."""
     all_tweets = []
     if mp_twitter:
-        all_tweets += parse_tweet(tweets_by(mp_twitter))
+        all_tweets += parse_tweets(tweets_by(mp_twitter))
     matches = relevant_tweets(mp_name, mp_twitter)
     not_by_mp = filter(lambda t: t['user']['screen_name'] != mp_twitter, matches)
-    all_tweets += parse_tweet(not_by_mp)
+    all_tweets += parse_tweets(not_by_mp)
     return all_tweets
 
 ### Utility functions
@@ -67,7 +75,7 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=""
     resp, content = client.request(url, method=http_method, body=post_body, headers=http_headers)
     return content
 
-def parse_tweet(tweet_list):
+def parse_tweets(tweet_list):
     """Returns a dict with keys 'from', 'content', and 'date'."""
     def tweet_date(tweet):
         data = tweet["created_at"].split()

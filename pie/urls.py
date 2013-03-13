@@ -20,6 +20,7 @@ urlpatterns = patterns('website.views',
     url(r'^admin/', include(admin.site.urls)),
 )
 urlpatterns += patterns('website.views',
+    url(r'^t/feed/$', 'live_tweet_feed'),
     url(r'^politicos/$', 'politicos_overview', {'type': 'Politico'}),
     url(r'^politicos/lord/$', 'politicos_overview', {'type': 'Lord'}),
     url(r'^politicos/lord/(?P<mp_name>[a-zA-Z_\']+)/$', 'lord_detail'),

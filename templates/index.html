@@ -1,11 +1,4 @@
 {% extends "base.html" %}
-{% block head %}
-<script>
-    $(document).ready(function() {
-        setInterval(fetchTweets, 20000);
-    });
-</script>
-{% endblock %}
 {% block title %}Home{% endblock %}
 {% block content %}
 
@@ -24,7 +17,6 @@
     <a href="#" class="btn" data-dismiss="modal">Close</a>
   </div>
 </div>
-<script>$('#beta').modal()</script>
 
 <div id="introCarousel" class="carousel slide">
   <ol class="carousel-indicators">
@@ -78,4 +70,13 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block endbody %}
+<script>$('#beta').modal()</script>
+<script>
+    $(document).ready(function() {
+        setInterval(fetchTweets, 20000);
+    });
+</script>
 {% endblock %}
