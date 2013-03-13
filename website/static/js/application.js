@@ -6,6 +6,6 @@ function fetchTweets() {
                       + ": " + value.content + " <span class=\"muted\"><i>- "
                       + value.date + "</i></span></p>";
         });
-        $("#tweetWall").html(tweets);
+        $("#tweetWall").fadeTo("short", 0).html(tweets).fadeTo("short", 1);
     });
 }
