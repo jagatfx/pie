@@ -1,4 +1,5 @@
 from string import ascii_letters
+from models import Sentiment
 
 def extract_words(text):
     for char in text:
@@ -7,7 +8,10 @@ def extract_words(text):
     return text.split()
 
 def get_word_sentiment(word):
-    return Sentiment.objects.get(word=word).value
+    try:
+        return Sentiment.objects.get(word=word).value
+    except Sentiment.DoesNotExist:
+        return 0
 
 def analyze_tweet_sentiment(tweet):
     words = extract_words(tweet)
@@ -20,4 +24,6 @@ def analyze_tweet_sentiment(tweet):
             i += 1
     if i:
         average = total_value / i
-    return average
+    if average:
+        return average
+    return 0

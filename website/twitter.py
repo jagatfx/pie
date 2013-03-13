@@ -1,4 +1,5 @@
 # Imports
+from sentiment import analyze_tweet_sentiment
 import os
 import oauth2, urllib, urllib2, json
 
@@ -85,7 +86,9 @@ def parse_tweets(tweet_list):
     try:
         return [{'from':linkify_tweet('@'+t['user']['screen_name']),
                  'content':linkify_tweet(t['text']),
-                 'date':tweet_date(t)} for t in tweet_list]
+                 'date':tweet_date(t),
+                 'sentiment': str(analyze_tweet_sentiment(t['text']))[:4]}
+                for t in tweet_list]
     except TypeError as e:
         return [{'content':'', 'from':'', 'date':''}]
 

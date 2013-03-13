@@ -20,7 +20,7 @@
     <div class="well span6">
         <p><span class="lead">Latest Twitter Mentions </span>(Tweeted at <a href="https://twitter.com/{{ twitter_handle }}" target="_blank">{{ twitter_handle }}</a>):</p>
         {% for tweet in tweets_at_them %}
-            <p><i class="icon-chevron-right"></i>{{ tweet.from|safe }}: {{ tweet.content|safe }} - {{ tweet.date }}</p>
+        <p><i class="icon-chevron-right"></i>{{ tweet.from|safe }}: {{ tweet.content|safe }} - {{ tweet.date }} ({{ tweet.sentiment }})</p>
         {% endfor %}
     </div>
     <div class="well span6">
