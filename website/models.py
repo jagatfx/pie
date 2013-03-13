@@ -4,8 +4,8 @@ from django.db import models
 
 class MP(models.Model):
     class Meta:
-        verbose_name = "MP"
-        verbose_name_plural = "MP's"
+        verbose_name = u'MP'
+        verbose_name_plural = u'MP\'s'
     name = models.CharField(max_length=30)
     party = models.CharField(max_length=30) 
     constituency = models.CharField(max_length=30)
@@ -16,8 +16,8 @@ class MP(models.Model):
 
 class Term(models.Model):
     class Meta:
-        verbose_name = "Term"
-        verbose_name_plural = "Terms"
+        verbose_name = u'Term'
+        verbose_name_plural = u'Terms'
     title = models.CharField(max_length=30)
 
     def __unicode__(self):
@@ -25,17 +25,17 @@ class Term(models.Model):
 
 class TermAlias(models.Model):
     class Meta:
-        verbose_name = "Term Alias"
-        verbose_name_plural = "Term Aliases"
+        verbose_name = u'Term Alias'
+        verbose_name_plural = u'Term Aliases'
     term = models.ForeignKey('Term')
     alias = models.CharField(max_length=30)
 
     def __unicode__(self):
-        return self.term.title + ": " + self.alias
+        return self.term.title + ': ' + self.alias
 
 class Sentiment(models.Model):
     word = models.CharField(max_length=75)
     value = models.FloatField()
 
     def __unicode__(self):
-        return self.word + ": " + self.value
+        return self.word + u': ' + str(self.value)

@@ -1,4 +1,4 @@
-from website.models import MP, Term, TermAlias
+from website.models import MP, Term, TermAlias, Sentiment
 from django.contrib import admin
 
 class MPAdmin(admin.ModelAdmin):
@@ -10,3 +10,4 @@ class TermAdmin(admin.ModelAdmin):
     list_display = ['title']
 admin.site.register(Term, TermAdmin)
 admin.site.register(TermAlias)
+admin.site.register(Sentiment)
