@@ -90,13 +90,13 @@ def linkify_tweet(tweet):
         '''Wrap words given a condition func and processing func'''
         return map(lambda x: proc(x) if cond(x) else x, word_list)
     def hashify(term):
-        a = '<a href="https://twitter.com/search/realtime?q=%23{0}&src=hash" target="_blank">'
-        return a.format(term[1:]) + term + '</a>'
+        a = u'<a href="https://twitter.com/search/realtime?q=%23{0}&src=hash" target="_blank">'
+        return a.format(term[1:]) + term + u'</a>'
     def atify(term):
-        a = '<a href="https://twitter.com/{}" target="_blank">{}</a>'
+        a = u'<a href="https://twitter.com/{}" target="_blank">{}</a>'
         return a.format(term, term)
     def linkify(term):
-        a = '<a href="{}" target="_blank">{}</a>'
+        a = u'<a href="{}" target="_blank">{}</a>'
         return a.format(term, term)
     words = tweet.split()
     words = wrapall(words, lambda x: x[0] == '#', hashify)
