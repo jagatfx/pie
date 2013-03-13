@@ -7,5 +7,12 @@ function fetchTweets() {
                       + value.date + "</i></span></p>";
         });
         $("#tweetWall").fadeTo("short", 0).html(tweets).fadeTo("short", 1);
+        $("#tweetWall-lastRefresh").html("moments ago");
+        tweetWall_lastRefresh = Math.floor($.now()/1000);
     });
+}
+
+function updateRefreshTime() {
+    var diff = Math.floor($.now()/1000) - tweetWall_lastRefresh;
+    $("#tweetWall-lastRefresh").html("about " + diff + " seconds ago");
 }

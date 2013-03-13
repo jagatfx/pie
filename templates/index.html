@@ -52,10 +52,13 @@
   <a class="carousel-control left" href="#introCarousel" data-slide="prev">&lsaquo;</a>
   <a class="carousel-control right" href="#introCarousel" data-slide="next">&rsaquo;</a>
 </div>
-<div id="liveTweets" class="well">
-  <p class="lead">Live MP Twitter Feed</p>
-  <div id="tweetWall">
-  </div>
+<div class="well">
+    <p>
+        <span class="lead">Live MP Twitter Feed</span>
+        <span class="pull-right">Last Refreshed: <span id="tweetWall-lastRefresh" class="muted">moments ago</span></span>
+    </p>
+    <div id="tweetWall">
+    </div>
 </div>
 
 {% endblock %}
@@ -63,9 +66,11 @@
 {% block endbody %}
 <script>$('#beta').modal()</script>
 <script>
+    var tweetWall_lastRefresh;
     $(document).ready(function() {
         fetchTweets();
-        setInterval(fetchTweets, 30000);
+        setInterval(fetchTweets, 30 * 1000);
+        setInterval(updateRefreshTime, 5 * 1000);
     });
 </script>
 {% endblock %}
