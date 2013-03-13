@@ -94,9 +94,9 @@ def parse_tweets(tweet_list):
             if sent > 0:
                 sent = '<span class="positive">' + str(sent)[:4]
             elif sent < 0:
-                sent = '<span class="negative">' + str(sent)[:4]
+                sent = '<span class="negative">' + str(sent)[:5]
             else:
-                sent = '<span class="muted">' + str(sent)[:4]
+                sent = '<span class="muted">' + str(sent)
             tweet_dict['sentiment'] = sent + '</span>'
 
             result.append(tweet_dict)
