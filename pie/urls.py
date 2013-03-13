@@ -6,9 +6,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('website.views',
-    # Examples:
-    # url(r'^$', 'pie.views.home', name='home'),
-    # url(r'^pie/', include('pie.foo.urls')),
     url(r'^$', 'home'),
     url(r'^dashboard/$', direct_to_template, {'template': 'dashboard.html', 'extra_context': {'dash':True}}),
     url(r'^about/$', direct_to_template, {'template': 'about.html', 'extra_context': {'about':True}}),
@@ -16,7 +13,6 @@ urlpatterns = patterns('website.views',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )
 urlpatterns += patterns('website.views',
@@ -29,4 +25,8 @@ urlpatterns += patterns('website.views',
     #url(r'^media/(?P<mp_name>\w+)/$', 'media_detail'),
     #url(r'^issues/$', 'issues_overview'),
     #url(r'^issues/(?P<mp_name>\w+)/$', 'issues_detail'),
+)
+
+urlpatterns += patterns('website.views',
+    url(r'^ajax/feed/$', 'live_tweet_feed'),
 )

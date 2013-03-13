@@ -3,6 +3,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from website.models import MP
 from website.twitter import *
+from django.http import HttpResponse
+import json
 
 
 def home(request):
@@ -57,3 +59,6 @@ def lord_detail(request, mp_name):
             "tweets_at_them": tweets_at(mp.twitter_handle)
             }
     return render_to_response('politico_detail.html', RequestContext(request, data))
+
+def live_tweet_feed(request):
+    return HttpResponse(json.dumps(tweets_all()), content_type="application/json")
