@@ -26,10 +26,12 @@
     <p></p>
   </div>
 </div>
-<div id="tweetStream" class="well">
-  <p class="lead">Live MP Twitter Feed</p>
+<div class="well">
+  <p>
+    <span class="lead">Live MP Twitter Feed</span>
+    <span class="pull-right">Last Refreshed: <span id="tweetWall-lastRefresh" class="muted">moments ago</span></span>
+  </p>
   <div id="tweetWall">
-    <p><i class="icon-chevron-right"></i>From Placeholder MP (<a href="https://twitter.com/@PIE_Politics" target="_blank">@PIE_Politics</a>): placeholder tweet text placeholder tweet text lorem ipsum egestas eget quam - sent 00:01, Feb 21, 2013</p>
   </div>
 </div>
 
@@ -41,5 +43,12 @@
         $('#comingsoon').modal();
         $('#comingsoon').on('shown', $.cookie('comingsoon_shown', 'true'));
     }
+
+    var tweetWall_lastRefresh;
+    $(document).ready(function() {
+        fetchTweets();
+        setInterval(fetchTweets, 30 * 1000);
+        setInterval(updateRefreshTime, 5 * 1000);
+    });
 </script>
 {% endblock %}
