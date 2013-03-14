@@ -64,8 +64,12 @@
 {% endblock %}
 
 {% block endbody %}
-<script>$('#beta').modal()</script>
 <script>
+    if (!($.cookie('beta_shown'))) {
+        $('#beta').modal();
+        $('#beta').on('shown', $.cookie('beta_shown', 'true'));
+    }
+  
     var tweetWall_lastRefresh;
     $(document).ready(function() {
         fetchTweets();

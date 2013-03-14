@@ -5,7 +5,6 @@
 <div id="comingsoon" class="modal hide fade" tabindex="-1">
   <h2 class="inlineCenter">Dashboard coming soon!</h2>
 </div>
-<script>$('#comingsoon').modal()</script>
 
 <div id="hot-topics" class="row-fluid">
   <div id="trending" class="span6 well">
@@ -34,4 +33,13 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block endbody %}
+<script>
+    if (!($.cookie('comingsoon_shown'))) {
+        $('#comingsoon').modal();
+        $('#comingsoon').on('shown', $.cookie('comingsoon_shown', 'true'));
+    }
+</script>
 {% endblock %}
