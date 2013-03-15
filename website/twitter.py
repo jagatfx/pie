@@ -31,7 +31,10 @@ def tweets_at(mp_twitter, num_tweets=10):
         safe_url = safe(url)
         tweets = oauth_req(safe_url, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
         return tweets
-    return parse_tweets(json.loads(_api_helper())['statuses'])
+    tweet_list = json.loads(_api_helper())
+    if 'error' not in tweet_list:
+        return parse_tweets(tweet_list['statuses'])
+    return [{'content':'', 'from':'', 'date':''}] # should we have a global error result var
 
 def tweets_all(num_tweets=10):
     def _api_helper():
