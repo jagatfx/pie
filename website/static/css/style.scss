@@ -1,16 +1,20 @@
 .clear {
     clear: both;
 }
+
 .hide {
     visibility: none;
 }
+
 .inlineCenter {
     text-align: center;
 }
+
 .blockCenter {
     margin-right: auto;
     margin-right: auto;
 }
+
 .box {
     border: solid black 1px;
 }
@@ -22,37 +26,44 @@
         margin-top: 0px;
     }
 }
+
 .bio {
     > img {
         padding-right: 10px;
         min-width: 150px;
         max-width: 275px;
-        max-height: 275px;;
+        max-height: 275px;
     }
 }
+
 .mp-row {
     padding-bottom: 10px;
 }
 
-#introCarousel, #liveTweets {
-  min-width:1000px;
-  max-width:1400px;
+#introCarousel {
+  min-width:800px;
+  max-width:1300px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#liveTweets {
+  max-width:1300px;
   margin-left:auto;
   margin-right:auto;
 }
 
 .carousel-container {
-  height:500px;
+  height:450px;
   width:100%;
   overflow:hidden;
-}
-
-.carousel-container img {
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  min-width:100%;
+  img {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    min-width:100%;
+  }
 }
 
 .carousel-caption {
@@ -63,7 +74,7 @@
 }
 
 #tweetWall {
-  height:200px;
+  height:300px;
   overflow-y:auto;
 }
 
@@ -82,6 +93,7 @@
 .negative {
     color: red;
 }
+
 /* .carousel-control { */
 /*   visibility:hidden; */
 /* } */

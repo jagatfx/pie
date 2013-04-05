@@ -36,7 +36,7 @@ def tweets_at(mp_twitter, num_tweets=10):
         return parse_tweets(tweet_list['statuses'])
     return [{'content':'', 'from':'', 'date':''}] # should we have a global error result var
 
-def tweets_all(num_tweets=10):
+def tweets_all(num_tweets=25):
     def _api_helper():
         url = "https://api.twitter.com/1.1/lists/statuses.json?list_id=86633145&count={0}".format(num_tweets)
         safe_url = safe(url)
