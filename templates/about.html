@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block title %}About{% endblock %}
 {% block content %}
-<h3 style="margin:0 0 10px">What is the Political Intelligence Engine (PIE)?</h3>
+{% load staticfiles %}
+<img style="margin-right: 10px; height: 3em" class="pull-left" src="{% static "img/logo.png" %}">
+<h3 style="margin:0 0 10px">What is the Political Intelligence Engine?</h3>
 <p>The Political Intelligence Engine is an exploratory project that seeks to build an engine that will aggregate domain-specific information (in this case, UK Politics) in one place, and deliver meaningful insight and value to users who are passionate about the domain.</p>
 <p>If you have an interest in UK politics, we're not a bad place to start. You can drill down and learn more about a certain MP, Lord, or Media person who is active in politics. Soon, you will also be able to drill down by issue.</p>
 <p>At the moment, much of the data comes from Twitter, but we plan to expand to include many other public data sources. We don’t control the data sources and we have been known to make a mistake now and then, so please enjoy your PIE with care! </p>
