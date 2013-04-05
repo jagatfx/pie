@@ -70,6 +70,8 @@
         $('#beta').on('shown', $.cookie('beta_shown', 'true'));
     }
   
+    $('#introCarousel').carousel();
+
     var tweetWall_lastRefresh;
     $(document).ready(function() {
         fetchTweets();
