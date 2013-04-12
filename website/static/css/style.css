@@ -35,10 +35,18 @@
   margin-left: auto;
   margin-right: auto; }
 
-#liveTweets {
+#liveTweets.front {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto; }
+
+#liveTweets.dash {
+  margin-left: auto;
+  margin-right: auto; }
+
+#tweetWall {
+  height: 300px;
+  overflow-y: auto; }
 
 .carousel-container {
   height: 450px;
@@ -56,10 +64,6 @@
   color: #eee; }
   .carousel-caption a, .carousel-caption a:hover, .carousel-caption a:visited {
     color: #eee; }
-
-#tweetWall {
-  height: 300px;
-  overflow-y: auto; }
 
 .modal-header {
   padding: 9px 15px 0px; }
