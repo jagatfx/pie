@@ -2,13 +2,30 @@ from django.db import models
 
 # Create your models here.
 
-class MP(models.Model):
+class Politico(models.Model):
+    POLITICO_TYPES = (
+        ('MP', 'MP'),
+        ('LD', 'Lord'),
+    )
     class Meta:
-        verbose_name = u'MP'
-        verbose_name_plural = u'MP\'s'
+        verbose_name = u'Politico'
+        verbose_name_plural = u'Politicos'
     name = models.CharField(max_length=30)
-    party = models.CharField(max_length=30) 
+    type = models.CharField(max_length=2, choices=POLITICO_TYPES)
+    party = models.CharField(max_length=30)
     constituency = models.CharField(max_length=30)
+    twitter_handle = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.name
+
+class Media(models.Model):
+    class Meta:
+        verbose_name = u'Media Personality'
+        verbose_name_plural = u'Media Personalities'
+    name = models.CharField(max_length=30)
+    party_leaning = models.CharField(max_length=30)
+    affiliation = models.CharField(max_length=30)
     twitter_handle = models.CharField(max_length=30)
 
     def __unicode__(self):
