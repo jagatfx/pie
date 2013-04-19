@@ -1,10 +1,10 @@
-from website.models import MP, Term, TermAlias, Sentiment
+from website.models import Politico, Term, TermAlias, Sentiment
 from django.contrib import admin
 
-class MPAdmin(admin.ModelAdmin):
-    list_display = ['name', 'party', 'constituency', 'twitter_handle']
-    list_filter = ['party']
-admin.site.register(MP, MPAdmin)
+class PoliticoAdmin(admin.ModelAdmin):
+    list_display = ['name', 'type', 'party', 'constituency', 'twitter_handle']
+    list_filter = ['type', 'party']
+admin.site.register(Politico, PoliticoAdmin)
 
 class TermAdmin(admin.ModelAdmin):
     list_display = ['title']

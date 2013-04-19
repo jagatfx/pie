@@ -1,7 +1,7 @@
 # Imports
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from website.models import MP
+from website.models import Politico
 from website.twitter import *
 from django.http import HttpResponse
 import json
@@ -19,9 +19,9 @@ def get_politico_overview(type):
     if type == "Lord":
         politico_list = []
     elif type == "MP":
-        politico_list = MP.objects.all().order_by('name')
+        politico_list = Politico.objects.all().order_by('name')
     else:
-        politico_list = MP.objects.all().order_by('name')
+        politico_list = Politico.objects.all().order_by('name')
 
     for politico in politico_list:
         politico_desc = {"name": politico.name,
@@ -34,7 +34,7 @@ def get_politico_overview(type):
     return pols
 
 def mp_detail(request, mp_name):
-    mp = MP.objects.get(name=mp_name.replace('_', ' '))
+    mp = Politico.objects.get(name=mp_name.replace('_', ' '))
     data = {"politico": True,
             "name": mp.name,
             "image_url": "http://pie.shreyaschand.com/img/mp/" + mp_name + ".png",
@@ -48,7 +48,7 @@ def mp_detail(request, mp_name):
 
 
 def lord_detail(request, mp_name):
-    mp = MP.objects.get(name=mp_name.replace('_', ' '))
+    mp = Politico.objects.get(name=mp_name.replace('_', ' '))
     data = {"politico": True,
             "name": mp.name,
             "image_url": "http://pie.shreyaschand.com/img/mp/" + mp_name + ".png",
