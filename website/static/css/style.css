@@ -80,7 +80,7 @@
 
 #pieanalytics a {
   text-decoration: none; }
-  #pieanalytics a:hover, #pieanalytics a:visited {
+  #pieanalytics a:hover {
     color: #005580; }
 
 /* .carousel-control { */
