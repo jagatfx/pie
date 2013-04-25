@@ -62,3 +62,9 @@ def lord_detail(request, mp_name):
 
 def live_tweet_feed(request):
     return HttpResponse(json.dumps(tweets_all()), content_type="application/json")
+
+def visualizations(request):
+    return render_to_response('viz.html', RequestContext(request))
+
+def see_visualization(request, viznum):
+    return render_to_response('viz{0}.html'.format(viznum), RequestContext(request))
