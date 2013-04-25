@@ -83,6 +83,14 @@
   margin:1em 0;
 }
 
+#pieanalytics a, #pieanalytics a:hover, #pieanalytics a:visited {
+  text-decoration:none;
+}
+
+#pieanalytics a:hover, #pieanalytics a:visited {
+  color:#005580;
+}
+
 /* .carousel-control { */
 /*   visibility:hidden; */
 /* } */
