@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h3>{{ title }}</h3>
+{% if medias %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Affiliation</th>
+                <th>Party Leaning</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for media in medias %}
+            <tr>
+                <td><a href="/media/{{ media.url }}">{{ media.name }}</a></td>
+                <td>{{ media.affiliation }}</td>
+                <td>{{ media.party_leaning }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    Oops! No records were found! We'll be sure to work on this soon.
+{% endif %}
+{% endblock %}
+
+
+
+
