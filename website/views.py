@@ -88,3 +88,9 @@ def media_detail(request, media_name):
             "tweets_at_them": tweets_at(media.twitter_handle)
             }
     return render_to_response('media_detail.html', RequestContext(request, data))
+
+def visualizations(request):
+    return render_to_response('viz.html', RequestContext(request))
+
+def see_visualization(request, viznum):
+    return render_to_response('viz{0}.html'.format(viznum), RequestContext(request))

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Visualizations{% endblock %}
+{% block content %}
+<h3 style="margin:0 0 10px">Visualizations Demo</h3>
+
+<div id="vizpreviews" class="row-fluid">
+  {% load staticfiles %}
+  <a href="1"><div class="preview" style="background-image:url({% static "img/viz1prev.png" %}); background-size:cover"></div></a>
+  <a href="#"><div class="preview" style="background-image:url(http://placehold.it/1560x280/ccc/555&text=viz2); background-size:cover"></div></a>
+  <a href="#"><div class="preview" style="background-image:url(http://placehold.it/1560x280/ccc/555&text=viz3); background-size:cover"></div></a>
+</div>
+{% endblock %}

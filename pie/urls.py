@@ -29,4 +29,6 @@ urlpatterns += patterns('website.views',
 
 urlpatterns += patterns('website.views',
     url(r'^ajax/feed/$', 'live_tweet_feed'),
+    url(r'^viz/$', 'visualizations'),
+    url(r'^viz/(?P<viznum>[0-9]+)/$', 'see_visualization'),
 )
