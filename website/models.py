@@ -15,6 +15,7 @@ class Politico(models.Model):
     party = models.CharField(max_length=30)
     constituency = models.CharField(max_length=30)
     twitter_handle = models.CharField(max_length=30)
+    pageviews = models.IntegerField()
 
     def __unicode__(self):
         return self.name

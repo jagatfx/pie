@@ -35,6 +35,9 @@ def get_politico_overview(type):
 
 def mp_detail(request, mp_name):
     mp = Politico.objects.get(name=mp_name.replace('_', ' '))
+    # TODO abstract pageview increment functionality
+    mp.pageviews += 1 # update pageviews
+    mp.save()
     data = {"politico": True,
             "name": mp.name,
             "image_url": "http://pie.shreyaschand.com/img/mp/" + mp_name + ".png",
@@ -43,7 +46,7 @@ def mp_detail(request, mp_name):
             "twitter_handle": mp.twitter_handle,
             "tweets_by_them": tweets_by(mp.twitter_handle),
             "tweets_at_them": tweets_at(mp.twitter_handle),
-            "pageviews": 0 # TODO abstract this and move somewhere else later...
+            "pageviews": mp.pageviews
             }
     return render_to_response('politico_detail.html', RequestContext(request, data))
 
