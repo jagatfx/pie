@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+MAX_TWEET_LENGTH = 140
+TWITTER_HANDLE_MAX_LEN = 30
 
 class Politico(models.Model):
     POLITICO_TYPES = (
@@ -56,3 +58,14 @@ class Sentiment(models.Model):
 
     def __unicode__(self):
         return self.word + u': ' + str(self.value)
+
+class Tweet(models.Model):
+    author = models.ForeignKey(Politico)
+    author = models.CharField(max_length=TWITTER_HANDLE_MAX_LEN)
+    recipient = models.CharField(max_length=TWITTER_HANDLE_MAX_LEN) # allow Null. NULL = not at anyone
+    body = models.TextField(max_length=MAX_TWEET_LENGTH)
+
+class HashTag(models.Model):
+    tag = models.CharField(max_length=MAX_TWEET_LENGTH)
+    tweet = models.ManyToManyField(Tweet)
+
