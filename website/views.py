@@ -37,7 +37,7 @@ def mp_detail(request, mp_name):
     mp = Politico.objects.get(name=mp_name.replace('_', ' '))
     data = {"politico": True,
             "name": mp.name,
-            "image_url": "https://s3-us-west-1.amazonaws.com/mp-pie/" + mp_name + ".png",
+            "image_url": "https://s3-us-west-1.amazonaws.com/mp-pie/" + mp_name.lower() + ".png",
             "party": mp.party,
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
@@ -51,7 +51,7 @@ def lord_detail(request, mp_name):
     mp = Politico.objects.get(name=mp_name.replace('_', ' '))
     data = {"politico": True,
             "name": mp.name,
-            "image_url": "https://s3-us-west-1.amazonaws.com/mp-pie/" + mp_name + ".png",
+            "image_url": "https://s3-us-west-1.amazonaws.com/mp-pie/" + mp_name.lower() + ".png",
             "party": mp.party,
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
@@ -80,7 +80,7 @@ def media_detail(request, media_name):
     media = Media.objects.get(name=media_name.replace('_', ' '))
     data = {"politico": True,
             "name": media.name,
-            "image_url": "https://s3-us-west-1.amazonaws.com/mp-pie/" + media_name + ".png",
+            "image_url": "https://s3-us-west-1.amazonaws.com/mp-pie/" + media_name.lower() + ".png",
             "party_leaning": media.party_leaning,
             "affiliation": media.affiliation,
             "twitter_handle": media.twitter_handle,
