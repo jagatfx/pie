@@ -2,6 +2,7 @@
 from sentiment import analyze_tweet_sentiment
 import os
 import oauth2, urllib, urllib2, json
+import re
 
 # os = pull TWITTER_* oauth tokens from environment
 # oauth2 = to send secure authorized requests to the Twitter API
@@ -120,8 +121,10 @@ def linkify_tweet(tweet):
         a = u'<a href="https://twitter.com/search/realtime?q=%23{0}&src=hash" target="_blank">'
         return a.format(term[1:]) + term + u'</a>'
     def atify(term):
+        # remove illegal characters that cannot be a part of twitter handle
+        handle = re.sub(r'[^a-zA-Z0-9_]', "", handle)
         a = u'<a href="https://twitter.com/{}" target="_blank">{}</a>'
-        return a.format(term, term)
+        return a.format(handle, term)
     def linkify(term):
         a = u'<a href="{}" target="_blank">{}</a>'
         return a.format(term, term)
