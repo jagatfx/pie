@@ -122,7 +122,7 @@ def linkify_tweet(tweet):
         return a.format(term[1:]) + term + u'</a>'
     def atify(term):
         # remove illegal characters that cannot be a part of twitter handle
-        handle = re.sub(r'[^a-zA-Z0-9_]', "", handle)
+        handle = re.sub(r'[^a-zA-Z0-9_]', "", term)
         a = u'<a href="https://twitter.com/{}" target="_blank">{}</a>'
         return a.format(handle, term)
     def linkify(term):
