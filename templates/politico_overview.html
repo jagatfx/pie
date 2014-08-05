@@ -23,7 +23,7 @@
                 <td>{{ politico.constituency }}</td>
                 <td>{{ politico.party }}</td>
                 {% if title == "All Politicos" %}
-                <td>MP</td>
+                <td>{{ politico.type }}</td>
                 {% endif %}
             </tr>
             {% endfor %}
