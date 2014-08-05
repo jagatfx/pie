@@ -20,17 +20,17 @@ def store(output, full_name, party, constit, twitter, image):
             img = img.read()
             dest.write(img)
         except urllib2.HTTPError:
-            print('***{0}***'.format(image)) 
+            print('***{0}***'.format(image))
     l = [full_name, party, constit, twitter]
     l = list(map(lambda x: "'" + x + "'", l))
     output.write(preamble + ', '.join(l) + ")\n")
-    
+
 with open(OUTPUT_FILE, 'w') as f:
     for i in range(1, PAGES):
         print(i)
         url = url_base + str(i)
         page = urllib2.urlopen(url)
-        source = page.read() 
+        source = page.read()
         source = source.split('section>')[1]
         source = source.split('<div class="tweeters">')[1:]
         for politician in source:
