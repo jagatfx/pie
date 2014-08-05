@@ -6,6 +6,8 @@ from website.twitter import *
 from django.http import HttpResponse
 import json
 
+IMAGE_STORE_URL = os.environ['IMAGE_STORE_URL']
+IMAGE_EXT       = '.jpg'
 
 def home(request):
     return render_to_response('index.html', RequestContext(request, {"home": True}))
@@ -37,7 +39,7 @@ def mp_detail(request, mp_name):
     mp = Politico.objects.get(name=mp_name.replace('_', ' '))
     data = {"politico": True,
             "name": mp.name,
-            "image_url": "https://s3-us-west-1.amazonaws.com/mp-pie/" + mp_name.lower() + ".png",
+            "image_url": IMAGE_STORE_URL + "/mp/" + mp.twitter_handle[1:] + IMAGE_EXT,
             "party": mp.party,
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
@@ -51,7 +53,7 @@ def lord_detail(request, mp_name):
     mp = Politico.objects.get(name=mp_name.replace('_', ' '))
     data = {"politico": True,
             "name": mp.name,
-            "image_url": "https://s3-us-west-1.amazonaws.com/mp-pie/" + mp_name.lower() + ".png",
+            "image_url": IMAGE_STORE_URL + "/mp/" + mp.twitter_handle[1:] + IMAGE_EXT,
             "party": mp.party,
             "constituency": mp.constituency,
             "twitter_handle": mp.twitter_handle,
@@ -80,7 +82,7 @@ def media_detail(request, media_name):
     media = Media.objects.get(name=media_name.replace('_', ' '))
     data = {"politico": True,
             "name": media.name,
-            "image_url": "https://s3-us-west-1.amazonaws.com/mp-pie/" + media_name.lower() + ".png",
+            "image_url": IMAGE_STORE_URL + "/mp/" + media.twitter_handle[1:] + IMAGE_EXT,
             "party_leaning": media.party_leaning,
             "affiliation": media.affiliation,
             "twitter_handle": media.twitter_handle,
