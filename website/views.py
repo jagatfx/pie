@@ -18,7 +18,10 @@ def politicos_overview(request, type):
 
 def get_politico_overview(inType):
     pols = []
-    politico_list = Politico.objects.filter(type=inType).order_by('name')
+    if inType == "Politico":
+        politico_list = Politico.objects.all().order_by('name')
+    else:
+        politico_list = Politico.objects.filter(type=inType).order_by('name')
 
     for politico in politico_list:
         politico_desc = {"name": politico.name,
