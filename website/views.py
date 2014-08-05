@@ -16,9 +16,10 @@ def politicos_overview(request, type):
     data = {"politico": True, "politicos": get_politico_overview(type), "title": "All " + type + "s"}
     return render_to_response('politico_overview.html', RequestContext(request, data))
 
-def get_politico_overview(type):
+def get_politico_overview(inType):
     pols = []
-    politico_list = Politico.objects.all().order_by('name')
+    politico_list = Politico(type=inType)
+    politico_list = politico_list.objects.order_by('name')
 
     for politico in politico_list:
         politico_desc = {"name": politico.name,
