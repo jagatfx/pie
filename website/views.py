@@ -18,49 +18,44 @@ def politicos_overview(request, type):
 
 def get_politico_overview(type):
     pols = []
-    if type == "Lord":
-        politico_list = []
-    elif type == "MP":
-        politico_list = Politico.objects.all().order_by('name')
-    else:
-        politico_list = Politico.objects.all().order_by('name')
+    politico_list = Politico.objects.all().order_by('name')
 
     for politico in politico_list:
         politico_desc = {"name": politico.name,
                          "url": politico.name.replace(" ", "_"),
                          "party": politico.party,
                          "constituency": politico.constituency,
-                         "type": "mp"} # to be looked up later from general data struct
+                         "type": politico.type}
         pols.append(politico_desc)
 
     return pols
 
-def mp_detail(request, mp_name):
-    mp = Politico.objects.get(name=mp_name.replace('_', ' '))
+def politico_detail(request, pol_name):
+    pol = Politico.objects.get(name=pol_name.replace('_', ' '))
     data = {"politico": True,
-            "name": mp.name,
-            "image_url": IMAGE_STORE_URL + "/mp/" + mp.twitter_handle[1:] + IMAGE_EXT,
-            "party": mp.party,
-            "constituency": mp.constituency,
-            "twitter_handle": mp.twitter_handle,
-            "tweets_by_them": tweets_by(mp.twitter_handle),
-            "tweets_at_them": tweets_at(mp.twitter_handle)
+            "name": pol.name,
+            "image_url": IMAGE_STORE_URL + "/"+ pol.type +"/" + pol.twitter_handle[1:] + IMAGE_EXT,
+            "party": pol.party,
+            "constituency": pol.constituency,
+            "twitter_handle": pol.twitter_handle,
+            "tweets_by_them": tweets_by(pol.twitter_handle),
+            "tweets_at_them": tweets_at(pol.twitter_handle)
             }
     return render_to_response('politico_detail.html', RequestContext(request, data))
 
 
-def lord_detail(request, mp_name):
-    mp = Politico.objects.get(name=mp_name.replace('_', ' '))
-    data = {"politico": True,
-            "name": mp.name,
-            "image_url": IMAGE_STORE_URL + "/mp/" + mp.twitter_handle[1:] + IMAGE_EXT,
-            "party": mp.party,
-            "constituency": mp.constituency,
-            "twitter_handle": mp.twitter_handle,
-            "tweets_by_them": tweets_by(mp.twitter_handle),
-            "tweets_at_them": tweets_at(mp.twitter_handle)
-            }
-    return render_to_response('politico_detail.html', RequestContext(request, data))
+# def lord_detail(request, mp_name):
+#     mp = Politico.objects.get(name=mp_name.replace('_', ' '))
+#     data = {"politico": True,
+#             "name": mp.name,
+#             "image_url": IMAGE_STORE_URL + "/"+ mp.type +"/" + mp.twitter_handle[1:] + IMAGE_EXT,
+#             "party": mp.party,
+#             "constituency": mp.constituency,
+#             "twitter_handle": mp.twitter_handle,
+#             "tweets_by_them": tweets_by(mp.twitter_handle),
+#             "tweets_at_them": tweets_at(mp.twitter_handle)
+#             }
+#     return render_to_response('politico_detail.html', RequestContext(request, data))
 
 def live_tweet_feed(request):
     return HttpResponse(json.dumps(tweets_all()), content_type="application/json")
@@ -82,7 +77,7 @@ def media_detail(request, media_name):
     media = Media.objects.get(name=media_name.replace('_', ' '))
     data = {"politico": True,
             "name": media.name,
-            "image_url": IMAGE_STORE_URL + "/mp/" + media.twitter_handle[1:] + IMAGE_EXT,
+            "image_url": IMAGE_STORE_URL + "/media/" + media.twitter_handle[1:] + IMAGE_EXT,
             "party_leaning": media.party_leaning,
             "affiliation": media.affiliation,
             "twitter_handle": media.twitter_handle,
