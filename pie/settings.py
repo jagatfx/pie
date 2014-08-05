@@ -1,7 +1,7 @@
 # Django settings for YouTubeRadio project.
 import os.path
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 PROJECT_ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
