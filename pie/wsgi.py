@@ -14,7 +14,8 @@ framework.
 
 """
 import os
-
+reload(sys)
+sys.setdefaultencoding("utf-8")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pie.settings")
 
 # This application object is used by any WSGI server configured to use this
