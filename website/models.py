@@ -6,6 +6,8 @@ class Politico(models.Model):
     POLITICO_TYPES = (
         ('MP', 'MP'),
         ('LD', 'Lord'),
+        ('UR', 'US Representative'),
+        ('US', 'US Senator')
     )
     class Meta:
         verbose_name = u'Politico'
